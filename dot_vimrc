@@ -24,9 +24,9 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 
 "------ Cpp -------
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
@@ -90,10 +90,17 @@ highlight clear SignColumn
 " Buffer previous/next.
 nmap <leader>bp :bp<CR>
 nmap <Leader>bn :bn<CR>
-" Copy to clipboard.
-vnoremap <Leader>y "+y
-" Paste from clipboard.
-nmap <Leader>p "+p
+if has('linux')
+    " Copy to clipboard.
+    vnoremap <Leader>y "+y
+    " Paste from clipboard.
+    nmap <Leader>p "+p
+else
+    " Copy to clipboard.
+    vnoremap <Leader>y "*y
+    " Paste from clipboard.
+    nmap <Leader>p "*p
+endif
 " Write buffer.
 nmap <Leader>w :w<CR>
 " Close window.
