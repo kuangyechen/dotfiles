@@ -1,6 +1,6 @@
 function upgrade_oh_my_zsh_custom() {
     local repo
-    for repo in `find ${ZSH_CUSTOM} -type d -maxdepth 2 -mindepth 2`; do
+    for repo in `find ${ZSH_CUSTOM} -maxdepth 2 -mindepth 2 -type d`; do
         log_section "Upgrading $(basename ${repo})"
         if [[ ! -d ${repo}/.git ]]; then
             log_warning "Directory is not a git repo, do nothing."
