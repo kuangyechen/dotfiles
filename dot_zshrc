@@ -98,14 +98,6 @@ if [[ $(command -v poetry) ]]; then
     )
 fi
 
-# Pyenv
-if [[ $(command -v pyenv) ]]; then
-    export ZSH_PYENV_LAZY_VIRTUALENV=1
-    plugins+=(
-        pyenv-lazy
-    )
-fi
-
 # Docker
 if [[ $(command -v docker) ]]; then
     plugins+=(
@@ -175,6 +167,18 @@ if [[ $(command -v rm2trash) ]]; then
     alias ls_trash='rm2trash ls'
     alias cd_trash='cd $(rm2trash trash-path)'
     alias empty_trash='rm2trash empty'
+fi
+
+# Pyenv
+if [[ $(command -v pyenv) ]]; then
+    # Lazy init
+    export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
+    function pyenv() {
+        unset -f pyenv
+        eval "$(command pyenv init -)"
+        eval "$(command pyenv virtualenv-init -)"
+        pyenv $@
+    }
 fi
 
 # Pipx
