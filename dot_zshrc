@@ -1,13 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
+# Rust
+export PATH=${HOME}/.cargo/bin:${PATH}
 
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
     export PYENV_ROOT="${HOME}/.pyenv"
     export PATH="${PYENV_ROOT}/bin:${PATH}"
-
-    # Rust
-    export PATH=${HOME}/.cargo/bin:${PATH}
 
     # Solana
     export PATH=${HOME}/.local/share/solana/install/active_release/bin:${PATH}
