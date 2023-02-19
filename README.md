@@ -1,6 +1,7 @@
-# dotfiles
-All configs.
+# Dotfiles
 
-```
-chezmoi init https://github.com/KuangyeChen/dotfiles.git
+Run the script
+
+```sh
+${path_to_repo}/setup.py
 ```

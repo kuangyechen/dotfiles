@@ -127,12 +127,13 @@ fi
 
 source ${ZSH}/oh-my-zsh.sh
 
+# User configuration
+
 # Autoload
 autoload -Uz zmv
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
+# Manpage
+export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -186,7 +187,6 @@ if [[ $(command -v pipx) ]]; then
     export PIPX_DEFAULT_PYTHON_PYENV_VERSION="3.10.9"
     export PIPX_DEFAULT_PYTHON="${HOME}/.pyenv/versions/${PIPX_DEFAULT_PYTHON_PYENV_VERSION}/bin/python"
     if [[ ! $(command -v ${PIPX_DEFAULT_PYTHON}) ]]; then
-        echo "Install python for pipx: pyenv install ${PIPX_DEFAULT_PYTHON_PYENV_VERSION}"
+        echo "Install python for pipx, with pyenv: pyenv install ${PIPX_DEFAULT_PYTHON_PYENV_VERSION}"
     fi
 fi
-
