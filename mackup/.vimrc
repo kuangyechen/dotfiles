@@ -8,7 +8,7 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " ---- Themes ----
-Plug 'tomasr/molokai'
+Plug 'crusoexia/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -111,7 +111,7 @@ nmap <Leader>q :q<CR>
 "---- Theme ----
 set background=dark
 try
-  colorscheme molokai
+  colorscheme monokai
 catch
 endtry
 
@@ -130,7 +130,7 @@ let g:airline_theme='molokai'
 "---- vim-nerdtree-tabs ----
 " Toggle NerdTree.
 nmap <silent><leader>t :NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=0
 
 "---- syntastic settings ----
 let g:syntastic_error_symbol='✘'
@@ -153,8 +153,8 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " Global config.
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 " Menu.
-highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
+highlight Pmenu ctermfg=0 ctermbg=33 guifg=#005f87 guibg=#EEE8D5
+highlight PmenuSel ctermfg=0 ctermbg=33 guifg=#AFD700 guibg=#106900
 " Completion in comments.
 let g:ycm_complete_in_comments=1
 " Allow load config without confirm.
@@ -169,8 +169,6 @@ set completeopt-=preview
 let g:ycm_cache_omnifunc=1
 " Syntax.         
 let g:ycm_seed_identifiers_with_syntax=1
-" Python.
-let g:ycm_python_binary_path = 'python'
 " YCM FixIt.
 map <F9> :YcmCompleter FixIt<CR>
 " Jump. 

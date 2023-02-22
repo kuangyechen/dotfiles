@@ -84,7 +84,7 @@ yabai -m config insert_feedback_color        0xff9dd274
 # add 20 padding to the top and 0 padding to the bottom of every space located on the main display
 # yabai -m config external_bar main:20:0
 # add 20 padding to the top and bottom of all spaces regardless of the display it belongs to
-yabai -m config external_bar all:5:5
+yabai -m config external_bar all:1:1
 
 # ================================ 规则 ================================
 # Bypass yabai control
@@ -96,9 +96,20 @@ yabai -m rule --add app="^Reminders$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Logi Options$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Digital Color Meter$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^iStat Menus Status$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Stats$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Bartender 4$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Sound Control$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Seal$" manage=off mouse_follows_focus=off
-yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Activity Monitor$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^System Information$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Notification Center$" manage=off mouse_follows_focus=off opacity=1.0
+yabai -m rule --add app="^WeChat$" title!="^WeChat \(Chats\)$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Lark$" title!="^(Lark|WatermarkWidget)$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Lark Helper$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Lark Meetings$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Insync$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^AltTab$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Nextcloud$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^DaisyDisk$" manage=off mouse_follows_focus=off
 
 echo "yabai configuration loaded."

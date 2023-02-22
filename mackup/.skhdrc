@@ -1,9 +1,9 @@
 # ================================ Windows ================================
 # focus window
-alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east 
+shift + cmd - h : yabai -m window --focus west
+shift + cmd - j : yabai -m window --focus south
+shift + cmd - k : yabai -m window --focus north
+shift + cmd - l : yabai -m window --focus east 
 
 # Swap window
 shift + alt - h : yabai -m window --swap west
@@ -12,10 +12,10 @@ shift + alt - k : yabai -m window --swap north
 shift + alt - l : yabai -m window --swap east
 
 # Move window
-shift + cmd - h : yabai -m window --warp west
-shift + cmd - j : yabai -m window --warp south
-shift + cmd - k : yabai -m window --warp north
-shift + cmd - l : yabai -m window --warp east
+shift + alt + cmd - h : yabai -m window --warp west
+shift + alt + cmd - j : yabai -m window --warp south
+shift + alt + cmd - k : yabai -m window --warp north
+shift + alt + cmd - l : yabai -m window --warp east
 
 # Magnet like shortcuts
 # Resize back
@@ -34,9 +34,9 @@ ctrl + alt - down   : yabai -m window --grid 2:1:0:1:2:1
 # Split 4, up left
 ctrl + alt - u : yabai -m window --grid 2:2:0:0:1:1
 # Split 4, up right
-ctrl + alt - i : yabai -m window --grid 2:2:0:1:1:1
+ctrl + alt - i : yabai -m window --grid 2:2:1:0:1:1
 # Split 4, down left
-ctrl + alt - j : yabai -m window --grid 2:2:1:0:1:1
+ctrl + alt - j : yabai -m window --grid 2:2:0:1:1:1
 # Split 4, down right
 ctrl + alt - k : yabai -m window --grid 2:2:1:1:1:1
 # Split 3 horizontally, left 1/3
