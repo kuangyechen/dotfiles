@@ -36,6 +36,8 @@ def main(args):
                 args.dry_run,
             )
 
+    # fd-find, fzf, bottom, zellij, du-dust, bat, exa, sd
+
     if os_type == "Darwin":
         if not is_executable_exists("brew"):
             print("=====> Install Homebrew")

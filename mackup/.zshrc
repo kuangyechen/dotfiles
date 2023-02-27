@@ -161,6 +161,20 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_ed25519"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # show_size
 alias show_size='du -sh'
+
+# exa
+if [[ $(command -v exa) ]]; then
+    # general use aliases
+    alias ls='exa'                  # just replace ls by exa and allow all other exa arguments
+    alias l='ls -lbF'               # list, size, type
+    alias ll='ls -la'               # long, all
+    alias llm='ll --sort=modified'  # list, long, sort by modification date
+    alias la='ls -lbhHigUmuSa'      # all list
+    alias lx='ls -lbhHigUmuSa@'     # all list and extended
+    alias tree='exa --tree'         # tree view
+    alias lS='exa -1'               # one column by just names
+fi
+
 # rm2trash
 if [[ $(command -v rm2trash) ]]; then
     alias rm='rm2trash rm'
