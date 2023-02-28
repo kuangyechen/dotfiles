@@ -165,14 +165,15 @@ alias show_size='du -sh'
 # exa
 if [[ $(command -v exa) ]]; then
     # general use aliases
-    alias ls='exa'                  # just replace ls by exa and allow all other exa arguments
-    alias l='ls -lbF'               # list, size, type
-    alias ll='ls -la'               # long, all
-    alias llm='ll --sort=modified'  # list, long, sort by modification date
-    alias la='ls -lbhHigUmuSa'      # all list
-    alias lx='ls -lbhHigUmuSa@'     # all list and extended
-    alias tree='exa --tree'         # tree view
-    alias lS='exa -1'               # one column by just names
+    alias ls='exa'                                  # just replace ls by exa and allow all other exa arguments
+    alias l='exa -lbF --git'                        # list, size, type, git
+    alias ll='exa -lbGF --git'                      # long, all
+    alias llm='exa -lbGd --git --sort=modified'     # list, long, sort by modification date
+    alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'      # all list
+    alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'     # all list and extended
+    alias tree='exa --tree'                         # tree view
+    alias lS='exa -1'                               # one column by just names
+    alias lt='exa --tree --level=2'                 # tree level 2
 fi
 
 # rm2trash
