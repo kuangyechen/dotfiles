@@ -1,71 +1,30 @@
 #!/usr/bin/env python3
 
 import argparse
-import platform
 import os
 
 from field_dotfiles.utils import *
+from field_dotfiles.install import *
+from field_dotfiles.config import Config
 
 
 def main(args):
-    os_type = platform.system()
-    verbose_print(args.verbose, f"OS type: {os_type}")
-    if os_type != "Darwin":
-        print("Currently only tested on MacOS, exit.")
-        return
+    Config.dry_run = args.dry_run
+    Config.verbose = args.verbose
+    Config.yes = args.yes
+    Config.dotfiles_dir = os.path.dirname(os.path.realpath(__file__))
+    print_verbose(f"OS type: {Config.os_type}")
+    print_verbose(f"Home directory: {Config.home_dir}")
+    print_verbose(f"Dotfiles directory: {Config.dotfiles_dir}")
 
-    home_dir = os.path.expanduser("~")
-    verbose_print(args.verbose, f"Home directory: {home_dir}")
-    dotfiles_dir = os.path.dirname(os.path.realpath(__file__))
-    verbose_print(args.verbose, f"Dotfiles directory: {dotfiles_dir}")
-
-    if not is_executable_exists("zsh"):
-        if os_type == "Darwin":
-            print("WARNING!!! MacOS should always has ZSH installed.")
-
-    if is_executable_exists("zsh"):
-        if os.path.exists(os.path.join(home_dir, "./.oh-my-zsh")):
-            print("=====> Oh-My-Zsh installed.")
-        else:
-            print("=====> Install Oh-My-Zsh")
-            confirm_then_execute_shell_command(
-                "Do you want to install oh-my-zsh?",
-                [
-                    'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
-                ],
-                args.dry_run,
-            )
-
-    # fd-find, fzf, bottom, zellij, du-dust, bat, exa, sd
-
-    if os_type == "Darwin":
-        if not is_executable_exists("brew"):
-            print("=====> Install Homebrew")
-            confirm_then_execute_shell_command(
-                "Do you want to install homebrew?",
-                [
-                    '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-                ],
-                args.dry_run,
-            )
-        else:
-            print("=====> Homebrew installed.")
-
-    print("=====> Setup: Mackup")
-    mackup_dir = os.path.join(dotfiles_dir, "mackup")
-    verbose_print(args.verbose, f"Mackup directory: {mackup_dir}")
-    make_link(
-        os.path.join(mackup_dir, ".mackup.cfg"),
-        os.path.join(home_dir, ".mackup.cfg"),
-        args.verbose,
-        args.dry_run,
-    )
-    make_link(
-        os.path.join(mackup_dir, ".mackup"),
-        os.path.join(home_dir, ".mackup"),
-        args.verbose,
-        args.dry_run,
-    )
+    install_zsh()
+    install_rust()
+    install_oh_my_zsh()
+    install_oh_my_zsh_customs()
+    install_homebrew()
+    install_brewfile()
+    install_rust_apps()
+    install_config_files()
 
 
 if __name__ == "__main__":
@@ -78,6 +37,7 @@ if __name__ == "__main__":
         "-v", "--verbose", action="store_true", help="Output verbose log."
     )
     parser.add_argument("-d", "--dry-run", action="store_true", help="Dry run.")
+    parser.add_argument("-y", "--yes", action="store_true", help="Auto confirm.")
 
     args = parser.parse_args()
     main(args)

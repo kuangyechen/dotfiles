@@ -112,5 +112,6 @@ yabai -m rule --add app="^AltTab$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Nextcloud$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^DaisyDisk$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Mini Program$" manage=off mouse_follows_focus=off
+yabai -m rule --add app="^Spark$" title!="^Spark -.*" manage=off mouse_follows_focus=off
 
 echo "yabai configuration loaded."
