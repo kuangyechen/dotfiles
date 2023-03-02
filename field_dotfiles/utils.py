@@ -66,9 +66,10 @@ def execute_shell_command(command):
 
 
 def confirm_then_execute_shell_command(prompt, command):
-    confirm_then_execute(prompt)(
+    func = confirm_then_execute(prompt)(
         lambda: execute_shell_command(command) if not Config.dry_run else 0
     )
+    func()
 
 
 def is_executable_exists(executable):

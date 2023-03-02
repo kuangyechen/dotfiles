@@ -32,11 +32,14 @@ def linux_install_zsh():
 
 @check_is_linux
 def linux_install_pyenv():
-    git_clone(
-        os.path.join(Config.home_dir, ".pyenv"),
-        "https://github.com/pyenv/pyenv.git",
-    )
-    git_clone(
-        os.path.join(Config.home_dir, ".pyenv/plugins/pyenv-virtualenv"),
-        "https://github.com/pyenv/pyenv-virtualenv.git",
-    )
+    @confirm_then_execute("Do you want to install pyenv?")
+    def _install():
+        git_clone(
+            os.path.join(Config.home_dir, ".pyenv"),
+            "https://github.com/pyenv/pyenv.git",
+        )
+        git_clone(
+            os.path.join(Config.home_dir, ".pyenv/plugins/pyenv-virtualenv"),
+            "https://github.com/pyenv/pyenv-virtualenv.git",
+        )
+    _install()
