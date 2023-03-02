@@ -147,9 +147,11 @@ def install_rust_apps():
 
 
 def install_brewfile():
+    print_section("BREWFILE")
     mac_install_homebrew_brewfile()
 
 
 def install_pyenv():
+    print_section("PYENV")
     mac_install_pyenv()
     linux_install_pyenv()
