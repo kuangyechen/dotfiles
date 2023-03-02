@@ -23,6 +23,7 @@ def main(args):
     install_oh_my_zsh_customs()
     install_homebrew()
     install_brewfile()
+    install_pyenv()
     install_rust_apps()
     install_config_files()
 

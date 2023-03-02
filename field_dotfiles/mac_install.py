@@ -7,6 +7,7 @@ __all__ = [
     "mac_install_zsh",
     "mac_install_homebrew",
     "mac_install_homebrew_brewfile",
+    "mac_install_pyenv",
 ]
 
 
@@ -49,3 +50,17 @@ def mac_install_homebrew_brewfile():
             os.path.join(Config.dotfiles_dir, "mackup/.Brewfile")
         ),
     )
+
+
+@check_is_mac
+def mac_install_pyenv():
+    if not is_executable_exists("pyenv"):
+        if is_executable_exists("brew"):
+            confirm_then_execute_shell_command(
+                "Do you want to install pyenv?",
+                "brew install pyenv pyenv-virtualenv",
+            )
+        else:
+            print("Need homebrew, do nothing.")
+    else:
+        print("Pyenv already installed.")

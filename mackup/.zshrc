@@ -74,11 +74,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     common-aliases
-    z
-    extract
     pip
     sudo
-    vi-mode
+    zsh-vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -129,9 +127,6 @@ source ${ZSH}/oh-my-zsh.sh
 
 # User configuration
 
-# Autoload
-autoload -Uz zmv
-
 # Manpage
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -139,10 +134,17 @@ export MANPATH="/usr/local/man:$MANPATH"
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n ${SSH_CONNECTION} ]]; then
-    export EDITOR='vim'
+# if [[ -n ${SSH_CONNECTION} ]]; then
+#     export EDITOR='vim'
+# else
+#     export EDITOR='vim'
+# fi
+if [[ $(command -v hx) ]]; then
+    export EDITOR="hx"
+elif [[ $(command -v vim) ]]; then
+    export EDITOR="vim"
 else
-    export EDITOR='vim'
+    export EDITOR="vi"
 fi
 
 # Compilation flags
@@ -204,4 +206,17 @@ if [[ $(command -v pipx) ]]; then
     if [[ ! $(command -v ${PIPX_DEFAULT_PYTHON}) ]]; then
         echo "Install python for pipx, with pyenv: pyenv install ${PIPX_DEFAULT_PYTHON_PYENV_VERSION}"
     fi
+fi
+
+# Zoxide
+if [[ $(command -v zoxide) ]]; then
+    eval "$(zoxide init zsh)"
+fi
+
+# Zellij
+if [[ $(command -v zellij) ]]; then
+    function zr () { zellij run --name "$*" -- zsh -ic "$*";}
+    function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
+    function ze () { zellij edit "$*";}
+    function zef () { zellij edit --floating "$*";}
 fi

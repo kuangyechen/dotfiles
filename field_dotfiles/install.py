@@ -14,6 +14,7 @@ __all__ = [
     "install_config_files",
     "install_rust_apps",
     "install_brewfile",
+    "install_pyenv",
 ]
 
 
@@ -55,32 +56,25 @@ def install_oh_my_zsh_customs():
     zsh_custom = os.path.join(Config.home_dir, ".oh-my-zsh/custom")
 
     @confirm_then_execute("Do you want to install oh-my-zsh customs?")
-    def git_clone():
-        target = os.path.join(zsh_custom, "plugins/zsh-autosuggestions")
-        if not os.path.exists(target):
-            execute_shell_command(
-                f"git clone https://github.com/zsh-users/zsh-autosuggestions {target}"
-            )
-        else:
-            print("{} already installed.".format(target))
+    def _install():
+        git_clone(
+            os.path.join(zsh_custom, "plugins/zsh-autosuggestions"),
+            "https://github.com/zsh-users/zsh-autosuggestions",
+        )
+        git_clone(
+            os.path.join(zsh_custom, "plugins/zsh-syntax-highlighting"),
+            "https://github.com/zsh-users/zsh-syntax-highlighting.git",
+        )
+        git_clone(
+            os.path.join(zsh_custom, "themes/powerlevel10k"),
+            "https://github.com/romkatv/powerlevel10k.git",
+        )
+        git_clone(
+            os.path.join(zsh_custom, "plugins/zsh-vi-mode"),
+            "https://github.com/jeffreytse/zsh-vi-mode",
+        )
 
-        target = os.path.join(zsh_custom, "plugins/zsh-syntax-highlighting")
-        if not os.path.exists(target):
-            execute_shell_command(
-                f"git clone https://github.com/zsh-users/zsh-syntax-highlighting.git {target}"
-            )
-        else:
-            print("{} already installed.".format(target))
-
-        target = os.path.join(zsh_custom, "themes/powerlevel10k")
-        if not os.path.exists(target):
-            execute_shell_command(
-                f"git clone https://github.com/romkatv/powerlevel10k.git {target}"
-            )
-        else:
-            print("{} already installed.".format(target))
-
-    git_clone()
+    _install()
 
 
 def install_homebrew():
@@ -123,10 +117,12 @@ def install_rust_apps():
         {"brew": "grex", "cargo": "grex"},
         {"brew": "dust", "cargo": "du-dust"},
         {"brew": "sk", "cargo": "skim"},
-        {"brew": "helix", "cargo": "helix"},
         {"brew": "fd", "cargo": "fd-find"},
         {"brew": "sd", "cargo": "sd"},
         {"brew": "gitui", "cargo": "gitui"},
+        {"brew": "zoxide", "cargo": "zoxide"},
+        {"brew": "ripgrep", "cargo": "ripgrep"},
+        {"brew": "ouch", "cargo": "ouch"},
     ]
 
     @confirm_then_execute("Do you want to install all rust apps?")
@@ -152,3 +148,8 @@ def install_rust_apps():
 
 def install_brewfile():
     mac_install_homebrew_brewfile()
+
+
+def install_pyenv():
+    mac_install_pyenv()
+    linux_install_pyenv()

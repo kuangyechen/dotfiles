@@ -1,8 +1,11 @@
+import os
+
 from .utils import *
 from .config import Config
 
 __all__ = [
     "linux_install_zsh",
+    "linux_install_pyenv",
 ]
 
 
@@ -25,3 +28,15 @@ def linux_install_zsh():
         print("WARNING!!! Cannot find a way to install zsh on this linux.")
 
     confirm_then_execute_shell_command("Do you want to install zsh?", command)
+
+
+@check_is_linux
+def linux_install_pyenv():
+    git_clone(
+        os.path.join(Config.home_dir, ".pyenv"),
+        "https://github.com/pyenv/pyenv.git",
+    )
+    git_clone(
+        os.path.join(Config.home_dir, ".pyenv/plugins/pyenv-virtualenv"),
+        "https://github.com/pyenv/pyenv-virtualenv.git",
+    )
