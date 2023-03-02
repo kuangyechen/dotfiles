@@ -21,11 +21,13 @@ def check_is_linux(func):
 def linux_install_zsh():
     if is_executable_exists("zsh"):
         print("Zsh already installed.")
+        return
 
     if is_executable_exists("apt"):
         command = "sudo apt install -y zsh"
     else:
         print("WARNING!!! Cannot find a way to install zsh on this linux.")
+        return
 
     confirm_then_execute_shell_command("Do you want to install zsh?", command)
 
