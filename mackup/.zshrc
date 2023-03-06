@@ -1,3 +1,6 @@
+# Profile
+# zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
 # Rust
@@ -81,29 +84,43 @@ plugins=(
     zsh-syntax-highlighting
 )
 
+# Fd 
+if (( $+commands[fd] )); then
+    plugins+=(
+        fd
+    )
+fi
+
+# Ripgrep
+if (( $+commands[rg] )); then
+    plugins+=(
+        ripgrep
+    )
+fi
+
 # Git
-if [[ $(command -v git) ]]; then
+if (( $+commands[git] )); then
     plugins+=(
         git
     )
 fi
 
 # Poetry
-if [[ $(command -v poetry) ]]; then
+if (( $+commands[poetry] )); then
     plugins+=(
         poetry
     )
 fi
 
 # Docker
-if [[ $(command -v docker) ]]; then
+if (( $+commands[docker] )); then
     plugins+=(
         docker
     )
 fi
 
 # Tmux
-if [[ $(command -v tmux) ]]; then
+if (( $+commands[tmux] )); then
     plugins+=(
         tmux
     )
@@ -117,7 +134,7 @@ if [[ ${OSTYPE} == darwin* ]]; then
 fi
 
 # Rust
-if [[ $(command -v rustc) ]]; then
+if (( $+commands[rustc] )); then
     plugins+=(
         rust
     )
@@ -139,9 +156,9 @@ export LANG=en_US.UTF-8
 # else
 #     export EDITOR='vim'
 # fi
-if [[ $(command -v hx) ]]; then
+if (( $+commands[hx] )); then
     export EDITOR="hx"
-elif [[ $(command -v vim) ]]; then
+elif (( $+commands[vim] )); then
     export EDITOR="vim"
 else
     export EDITOR="vi"
@@ -165,7 +182,7 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_ed25519"
 alias show_size='du -sh'
 
 # exa
-if [[ $(command -v exa) ]]; then
+if (( $+commands[exa] )); then
     # general use aliases
     alias ls='exa'                                  # just replace ls by exa and allow all other exa arguments
     alias l='exa -lbF --git'                        # list, size, type, git
@@ -179,7 +196,7 @@ if [[ $(command -v exa) ]]; then
 fi
 
 # rm2trash
-if [[ $(command -v rm2trash) ]]; then
+if (( $+commands[rm2trash] )); then
     alias rm='rm2trash rm'
     alias ls_trash='rm2trash ls'
     alias cd_trash='cd $(rm2trash trash-path)'
@@ -187,9 +204,9 @@ if [[ $(command -v rm2trash) ]]; then
 fi
 
 # Pyenv
-if [[ $(command -v pyenv) ]]; then
-    # Lazy init
+if (( $+commands[pyenv] )); then
     export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
+    # Lazy init
     function pyenv() {
         unset -f pyenv
         eval "$(command pyenv init -)"
@@ -200,7 +217,7 @@ fi
 
 # Pipx
 # Use a pyenv python installation as default
-if [[ $(command -v pipx) ]]; then
+if (( $+commands[pipx] )); then
     export PIPX_DEFAULT_PYTHON_PYENV_VERSION="3.10.9"
     export PIPX_DEFAULT_PYTHON="${HOME}/.pyenv/versions/${PIPX_DEFAULT_PYTHON_PYENV_VERSION}/bin/python"
     if [[ ! $(command -v ${PIPX_DEFAULT_PYTHON}) ]]; then
@@ -209,14 +226,39 @@ if [[ $(command -v pipx) ]]; then
 fi
 
 # Zoxide
-if [[ $(command -v zoxide) ]]; then
+if (( $+commands[zoxide] )); then
     eval "$(zoxide init zsh)"
 fi
 
 # Zellij
-if [[ $(command -v zellij) ]]; then
+if (( $+commands[zellij] )); then
     function zr () { zellij run --name "$*" -- zsh -ic "$*";}
     function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
     function ze () { zellij edit "$*";}
     function zef () { zellij edit --floating "$*";}
 fi
+
+# Starship
+# eval "$(starship init zsh)"
+
+# Sk
+if (( $+commands[sk] )); then
+    function sk_history_search() {
+        local selected=$(history | sk --tac --reverse --query "$BUFFER" | awk '{$1=""; print substr($0,2)}')
+        if [[ -n "$selected" ]]; then
+            BUFFER="$selected"
+            CURSOR=$#BUFFER
+        fi
+    }
+fi
+
+# ZVM
+function zvm_after_lazy_keybindings() {
+    if functions sk_history_search > /dev/null; then
+        zvm_define_widget sk_history_search
+        zvm_bindkey vicmd '^R' sk_history_search
+    fi
+}
+
+# Profile
+# zprof
