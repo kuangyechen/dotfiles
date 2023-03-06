@@ -178,8 +178,9 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_ed25519"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# show_size
-alias show_size='du -sh'
+
+# ZMV
+autoload zmv
 
 # exa
 if (( $+commands[exa] )); then
