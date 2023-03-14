@@ -22,9 +22,12 @@ export ZSH=${HOME}/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# Powerline10k
 ZSH_THEME="powerlevel10k/powerlevel10k"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Starship
+# eval "$(starship init zsh)"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -238,9 +241,6 @@ if (( $+commands[zellij] )); then
     function ze () { zellij edit "$*";}
     function zef () { zellij edit --floating "$*";}
 fi
-
-# Starship
-# eval "$(starship init zsh)"
 
 # Sk
 if (( $+commands[sk] )); then

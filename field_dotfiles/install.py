@@ -7,6 +7,7 @@ from .config import Config
 
 __all__ = [
     "install_zsh",
+    "install_fish",
     "install_rust",
     "install_oh_my_zsh",
     "install_oh_my_zsh_customs",
@@ -17,6 +18,10 @@ __all__ = [
     "install_pyenv",
 ]
 
+def install_fish():
+    print_section("FISH")
+    mac_install_fish()
+    linux_install_fish()
 
 def install_zsh():
     print_section("ZSH")

@@ -5,6 +5,7 @@ from .config import Config
 
 __all__ = [
     "mac_install_zsh",
+    "mac_install_fish",
     "mac_install_homebrew",
     "mac_install_homebrew_brewfile",
     "mac_install_pyenv",
@@ -25,6 +26,20 @@ def mac_install_zsh():
         print("WARNING!!! MacOS should always has zsh installed.")
     else:
         print("Zsh already installed.")
+
+
+@check_is_mac
+def mac_install_fish():
+    if not is_executable_exists("fish"):
+        if is_executable_exists("brew"):
+            confirm_then_execute_shell_command(
+                "Do you want to install fish?",
+                "brew install fish",
+            )
+        else:
+            print("Need homebrew, do nothing.")
+    else:
+        print("Fish already installed.")
 
 
 @check_is_mac

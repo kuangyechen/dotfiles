@@ -5,6 +5,7 @@ from .config import Config
 
 __all__ = [
     "linux_install_zsh",
+    "linux_install_fish",
     "linux_install_pyenv",
 ]
 
@@ -33,6 +34,21 @@ def linux_install_zsh():
 
 
 @check_is_linux
+def linux_install_fish():
+    if is_executable_exists("fish"):
+        print("Fish already installed.")
+        return
+
+    if is_executable_exists("apt"):
+        command = "sudo apt install -y fish"
+    else:
+        print("WARNING!!! Cannot find a way to install fish on this linux.")
+        return
+
+    confirm_then_execute_shell_command("Do you want to install fish?", command)
+
+
+@check_is_linux
 def linux_install_pyenv():
     @confirm_then_execute("Do you want to install pyenv?")
     def _install():
@@ -44,4 +60,5 @@ def linux_install_pyenv():
             os.path.join(Config.home_dir, ".pyenv/plugins/pyenv-virtualenv"),
             "https://github.com/pyenv/pyenv-virtualenv.git",
         )
+
     _install()
