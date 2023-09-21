@@ -167,6 +167,14 @@ else
     export EDITOR="vi"
 fi
 
+if [[ ${OSTYPE} == darwin* ]]; then
+    if (( $+commands[vim] )); then
+        export ZVM_VI_EDITOR="vim"
+    else
+        export ZVM_VI_EDITOR="vi"
+    fi
+fi
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
