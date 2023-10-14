@@ -9,6 +9,7 @@ __all__ = [
     "mac_install_homebrew",
     "mac_install_homebrew_brewfile",
     "mac_install_pyenv",
+    "mac_install_mackup",
 ]
 
 
@@ -64,6 +65,18 @@ def mac_install_homebrew_brewfile():
         "brew bundle install --file={}".format(
             os.path.join(Config.dotfiles_dir, "mackup/.Brewfile")
         ),
+    )
+
+
+@check_is_mac
+def mac_install_mackup():
+    if not is_executable_exists("brew"):
+        print("Need homebrew, do nothing")
+        return
+
+    confirm_then_execute_shell_command(
+        "Do you want to install mackup?",
+        "brew install mackup"
     )
 
 

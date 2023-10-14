@@ -16,7 +16,13 @@ __all__ = [
     "install_rust_apps",
     "install_brewfile",
     "install_pyenv",
+    "install_mackup",
 ]
+
+def install_mackup():
+    print_section("MACKUP")
+    mac_install_mackup()
+    linux_install_mackup()
 
 def install_fish():
     print_section("FISH")
@@ -110,6 +116,8 @@ def install_config_files():
             "Do you want to restore configs from mackup repo?",
             "mackup restore",
         )
+    else:
+        print("No mackup installed.")
 
 
 def install_rust_apps():
@@ -118,6 +126,7 @@ def install_rust_apps():
     apps = [
         {"brew": "zellij", "cargo": "zellij"},
         {"brew": "bat", "cargo": "bat"},
+        {"brew": "exa", "cargo": "exa"},
         {"brew": "bottom", "cargo": "bottom"},
         {"brew": "grex", "cargo": "grex"},
         {"brew": "dust", "cargo": "du-dust"},

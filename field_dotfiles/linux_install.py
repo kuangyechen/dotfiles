@@ -7,6 +7,7 @@ __all__ = [
     "linux_install_zsh",
     "linux_install_fish",
     "linux_install_pyenv",
+    "linux_install_mackup",
 ]
 
 
@@ -16,6 +17,22 @@ def check_is_linux(func):
             return func(*args, **kwargs)
 
     return wrapper
+
+
+@check_is_linux
+def linux_install_mackup():
+    if is_executable_exists("mackup"):
+        print("Mackup already installed.")
+        return
+
+    if is_executable_exists("apt"):
+        command = "sudo apt install -y pipx"
+    else:
+        print("WARNING!!! Cannot find a way to install pipx on this linux.")
+        return
+
+    confirm_then_execute_shell_command("Do you want to install pipx?", command)
+    confirm_then_execute_shell_command("Do you want to install mackup?", "pipx install mackup")
 
 
 @check_is_linux

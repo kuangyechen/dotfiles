@@ -19,6 +19,7 @@ def main(args):
 
     install_homebrew()
     install_brewfile()
+    install_mackup()
     # install_fish()
     install_zsh()
     install_rust()
