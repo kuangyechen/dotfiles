@@ -8,6 +8,7 @@ __all__ = [
     "linux_install_fish",
     "linux_install_pyenv",
     "linux_install_mackup",
+    "linux_install_libraries",
 ]
 
 
@@ -18,6 +19,18 @@ def check_is_linux(func):
 
     return wrapper
 
+@check_is_linux
+def linux_install_libraries():
+    if is_executable_exists("apt"):
+        command = "sudo apt install -y build-essential gdb lcov pkg-config " + \
+            "libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev " + \
+            "libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev " + \
+            "lzma lzma-dev tk-dev uuid-dev zlib1g-dev cmake "
+        print("To run command:", command)
+        confirm_then_execute_shell_command("Do you want to install build libraries?", command)
+    else:
+        print("WARNING!!! Cannot find a way (apt) to install libraries on this linux.")
+    
 
 @check_is_linux
 def linux_install_mackup():

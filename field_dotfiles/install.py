@@ -17,7 +17,12 @@ __all__ = [
     "install_brewfile",
     "install_pyenv",
     "install_mackup",
+    "install_linux_libraries",
 ]
+
+def install_linux_libraries():
+    print_section("Linux libraries")
+    linux_install_libraries()
 
 
 def install_mackup():

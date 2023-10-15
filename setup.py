@@ -17,6 +17,7 @@ def main(args):
     print_verbose(f"Home directory: {Config.home_dir}")
     print_verbose(f"Dotfiles directory: {Config.dotfiles_dir}")
 
+    install_linux_libraries()
     install_homebrew()
     install_brewfile()
     install_mackup()
