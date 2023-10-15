@@ -1,0 +1,3 @@
+[submodule "mackup/.warp/themes"]
+	path = mackup/.warp/themes
+	url = https://github.com/warpdotdev/themes.git
