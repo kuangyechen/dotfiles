@@ -13,7 +13,7 @@ __all__ = [
     "confirm_then_execute_shell_command",
     "is_executable_exists",
     "print_section",
-    "git_clone"
+    "git_clone",
 ]
 
 
@@ -75,10 +75,9 @@ def confirm_then_execute_shell_command(prompt, command):
 def is_executable_exists(executable):
     return shutil.which(executable) is not None
 
+
 def git_clone(target, repo):
     if not os.path.exists(target):
-        execute_shell_command(
-            f"git clone {repo} {target}"
-        )
+        execute_shell_command(f"git clone {repo} {target}")
     else:
         print("{} already installed.".format(target))

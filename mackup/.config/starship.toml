@@ -46,7 +46,7 @@ disabled = false
 # represents the current operating system
 [os]
 style = "bg:#0B0D11"
-disabled = true # Disabled by default
+disabled = true      # Disabled by default
 
 [hostname]
 ssh_only = false
@@ -154,7 +154,7 @@ format = '[ $symbol ($version) ]($style)'
 
 [time]
 disabled = false
-time_format = "%R" # Hour:Minute Format
+time_format = "%R"              # Hour:Minute Format
 style = "fg:#2C2525 bg:#F2FFFC"
 format = '[ $time ]($style)'
 

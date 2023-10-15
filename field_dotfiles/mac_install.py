@@ -75,8 +75,7 @@ def mac_install_mackup():
         return
 
     confirm_then_execute_shell_command(
-        "Do you want to install mackup?",
-        "brew install mackup"
+        "Do you want to install mackup?", "brew install mackup"
     )
 
 

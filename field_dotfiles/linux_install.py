@@ -32,7 +32,9 @@ def linux_install_mackup():
         return
 
     confirm_then_execute_shell_command("Do you want to install pipx?", command)
-    confirm_then_execute_shell_command("Do you want to install mackup?", "pipx install mackup")
+    confirm_then_execute_shell_command(
+        "Do you want to install mackup?", "pipx install mackup"
+    )
 
 
 @check_is_linux
@@ -67,15 +69,19 @@ def linux_install_fish():
 
 @check_is_linux
 def linux_install_pyenv():
-    @confirm_then_execute("Do you want to install pyenv?")
-    def _install():
-        git_clone(
-            os.path.join(Config.home_dir, ".pyenv"),
-            "https://github.com/pyenv/pyenv.git",
-        )
-        git_clone(
-            os.path.join(Config.home_dir, ".pyenv/plugins/pyenv-virtualenv"),
-            "https://github.com/pyenv/pyenv-virtualenv.git",
-        )
+    if not is_executable_exists("pyenv"):
 
-    _install()
+        @confirm_then_execute("Do you want to install pyenv?")
+        def _install():
+            git_clone(
+                os.path.join(Config.home_dir, ".pyenv"),
+                "https://github.com/pyenv/pyenv.git",
+            )
+            git_clone(
+                os.path.join(Config.home_dir, ".pyenv/plugins/pyenv-virtualenv"),
+                "https://github.com/pyenv/pyenv-virtualenv.git",
+            )
+
+        _install()
+    else:
+        print("Pyenv already installed.")

@@ -19,15 +19,18 @@ __all__ = [
     "install_mackup",
 ]
 
+
 def install_mackup():
     print_section("MACKUP")
     mac_install_mackup()
     linux_install_mackup()
 
+
 def install_fish():
     print_section("FISH")
     mac_install_fish()
     linux_install_fish()
+
 
 def install_zsh():
     print_section("ZSH")
@@ -134,6 +137,7 @@ def install_rust_apps():
         {"brew": "fd", "cargo": "fd-find"},
         {"brew": "sd", "cargo": "sd"},
         {"brew": "gitui", "cargo": "gitui"},
+        {"brew": "starship", "cargo": "starship"},
         {"brew": "zoxide", "cargo": "zoxide"},
         {"brew": "ripgrep", "cargo": "ripgrep"},
         {"brew": "ouch", "cargo": "ouch"},
