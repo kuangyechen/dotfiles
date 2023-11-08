@@ -278,4 +278,3 @@ function zvm_after_lazy_keybindings() {
 
 # Profile
 # zprof
-export PATH=/Users/field/.local/bin:$PATH
