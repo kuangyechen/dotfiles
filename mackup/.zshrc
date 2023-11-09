@@ -12,14 +12,18 @@
 export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
 # Rust
 export PATH=${HOME}/.cargo/bin:${PATH}
-
+# Other PATH in linux
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
-    export PYENV_ROOT="${HOME}/.pyenv"
-    export PATH="${PYENV_ROOT}/bin:${PATH}"
+    if [[ -n $+commands[pyenv] ]]; then
+        export PYENV_ROOT="${HOME}/.pyenv"
+        export PATH="${PYENV_ROOT}/bin:${PATH}"
+    fi
 
     # Solana
-    export PATH=${HOME}/.local/share/solana/install/active_release/bin:${PATH}
+    if [[ -n $+commands[solana] ]]; then
+        export PATH=${HOME}/.local/share/solana/install/active_release/bin:${PATH}
+    fi
 fi
 
 
@@ -223,25 +227,15 @@ if (( $+commands[rm2trash] )); then
 fi
 
 # Pyenv
-if (( $+commands[pyenv] )); then
-    export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
-    # Lazy init
+if [[ $+commands[pyenv] ]]; then    # Lazy init
     function pyenv() {
         unset -f pyenv
         eval "$(command pyenv init -)"
-        eval "$(command pyenv virtualenv-init -)"
+        if pyenv virtualenv --version &>/dev/null; then
+            eval "$(command pyenv virtualenv-init -)"
+        fi
         pyenv $@
     }
-fi
-
-# Pipx
-# Use a pyenv python installation as default
-if (( $+commands[pipx] )); then
-    export PIPX_DEFAULT_PYTHON_PYENV_VERSION="3.10.9"
-    export PIPX_DEFAULT_PYTHON="${HOME}/.pyenv/versions/${PIPX_DEFAULT_PYTHON_PYENV_VERSION}/bin/python"
-    if [[ ! $(command -v ${PIPX_DEFAULT_PYTHON}) ]]; then
-        echo "Install python for pipx, with pyenv: pyenv install ${PIPX_DEFAULT_PYTHON_PYENV_VERSION}"
-    fi
 fi
 
 # Zoxide
