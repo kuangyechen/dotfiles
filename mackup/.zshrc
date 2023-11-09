@@ -15,13 +15,13 @@ export PATH=${HOME}/.cargo/bin:${PATH}
 # Other PATH in linux
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
-    if [[ -z $+commands[pyenv] ]]; then
+    if (( ! $+commands[pyenv] )); then
         export PYENV_ROOT="${HOME}/.pyenv"
         export PATH="${PYENV_ROOT}/bin:${PATH}"
     fi
 
     # Solana
-    if [[ -z $+commands[solana] ]]; then
+    if (( ! $+commands[solana] )); then
         export PATH=${HOME}/.local/share/solana/install/active_release/bin:${PATH}
     fi
 fi
@@ -227,7 +227,7 @@ if (( $+commands[rm2trash] )); then
 fi
 
 # Pyenv
-if [[ $+commands[pyenv] ]]; then    # Lazy init
+if (( $+commands[pyenv] )); then    # Lazy init
     function pyenv() {
         unset -f pyenv
         eval "$(command pyenv init -)"
