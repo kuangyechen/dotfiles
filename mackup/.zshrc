@@ -15,13 +15,13 @@ export PATH=${HOME}/.cargo/bin:${PATH}
 # Other PATH in linux
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
-    if [[ -n $+commands[pyenv] ]]; then
+    if [[ -z $+commands[pyenv] ]]; then
         export PYENV_ROOT="${HOME}/.pyenv"
         export PATH="${PYENV_ROOT}/bin:${PATH}"
     fi
 
     # Solana
-    if [[ -n $+commands[solana] ]]; then
+    if [[ -z $+commands[solana] ]]; then
         export PATH=${HOME}/.local/share/solana/install/active_release/bin:${PATH}
     fi
 fi
