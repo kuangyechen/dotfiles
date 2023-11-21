@@ -12,6 +12,8 @@
 export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
 # Rust
 export PATH=${HOME}/.cargo/bin:${PATH}
+# Foundry
+export PATH=${PATH}:/Users/field/.foundry/bin
 # Other PATH in linux
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
@@ -119,10 +121,10 @@ if (( $+commands[git] )); then
     )
 fi
 
-# Poetry
-if (( $+commands[poetry] )); then
+# Rye
+if (( $+commands[rye] )); then
     plugins+=(
-        poetry
+        rye
     )
 fi
 
@@ -226,17 +228,8 @@ if (( $+commands[rm2trash] )); then
     alias empty_trash='rm2trash empty'
 fi
 
-# Pyenv
-if (( $+commands[pyenv] )); then    # Lazy init
-    function pyenv() {
-        unset -f pyenv
-        eval "$(command pyenv init -)"
-        if pyenv virtualenv --version &>/dev/null; then
-            eval "$(command pyenv virtualenv-init -)"
-        fi
-        pyenv $@
-    }
-fi
+# Rye
+source "$HOME/.rye/env"
 
 # Zoxide
 if (( $+commands[zoxide] )); then
@@ -272,3 +265,4 @@ function zvm_after_lazy_keybindings() {
 
 # Profile
 # zprof
+export PATH=/Users/field/.local/bin:$PATH
