@@ -13,7 +13,7 @@ export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
 # Rust
 export PATH=${HOME}/.cargo/bin:${PATH}
 # Foundry
-export PATH=${PATH}:/Users/field/.foundry/bin
+export PATH=${PATH}:${HOME}/.foundry/bin
 # Other PATH in linux
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
@@ -40,7 +40,9 @@ export ZSH=${HOME}/.oh-my-zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # Starship
-eval "$(starship init zsh)"
+if (( $+commands[starship] )); then
+    eval "$(starship init zsh)"
+fi
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -220,6 +222,11 @@ if (( $+commands[exa] )); then
     alias lt='exa --tree --level=2'                 # tree level 2
 fi
 
+# Rye
+if [[ -f "$HOME/.rye/env" ]]; then
+    source "$HOME/.rye/env"
+fi
+
 # rm2trash
 if (( $+commands[rm2trash] )); then
     alias rm='rm2trash rm'
@@ -227,9 +234,6 @@ if (( $+commands[rm2trash] )); then
     alias cd_trash='cd $(rm2trash trash-path)'
     alias empty_trash='rm2trash empty'
 fi
-
-# Rye
-source "$HOME/.rye/env"
 
 # Zoxide
 if (( $+commands[zoxide] )); then
