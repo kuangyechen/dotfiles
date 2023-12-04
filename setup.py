@@ -20,7 +20,6 @@ def main(args):
     install_linux_libraries()
     install_homebrew()
     install_brewfile()
-    install_mackup()
     # install_fish()
     install_zsh()
     install_rust()
@@ -28,6 +27,7 @@ def main(args):
     install_oh_my_zsh_customs()
     # install_pyenv()
     install_rye()
+    install_mackup()
     install_rust_apps()
     install_config_files()
 
