@@ -27,6 +27,7 @@ def main(args):
     install_oh_my_zsh()
     install_oh_my_zsh_customs()
     # install_pyenv()
+    install_rye()
     install_rust_apps()
     install_config_files()
 

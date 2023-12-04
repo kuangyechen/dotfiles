@@ -55,15 +55,9 @@ def linux_install_mackup():
         print("Mackup already installed.")
         return
 
-    if is_executable_exists("apt"):
-        command = "sudo apt install -y pipx"
-    else:
-        print("WARNING!!! Cannot find a way to install pipx on this linux.")
-        return
-
-    confirm_then_execute_shell_command("Do you want to install pipx?", command)
+    linux_install_rye()
     confirm_then_execute_shell_command(
-        "Do you want to install mackup?", "pipx install mackup"
+        "Do you want to install mackup?", "rye install mackup"
     )
 
 
