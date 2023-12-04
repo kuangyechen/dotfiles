@@ -18,7 +18,15 @@ __all__ = [
     "install_pyenv",
     "install_mackup",
     "install_linux_libraries",
+    "install_rye",
 ]
+
+
+def install_rye():
+    print_section("Rye")
+    linux_install_rye()
+    mac_install_rye()
+
 
 def install_linux_libraries():
     print_section("Linux libraries")

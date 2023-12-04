@@ -10,6 +10,7 @@ __all__ = [
     "mac_install_homebrew_brewfile",
     "mac_install_pyenv",
     "mac_install_mackup",
+    "mac_install_rye",
 ]
 
 
@@ -70,13 +71,16 @@ def mac_install_homebrew_brewfile():
 
 @check_is_mac
 def mac_install_mackup():
-    if not is_executable_exists("brew"):
-        print("Need homebrew, do nothing")
-        return
-
-    confirm_then_execute_shell_command(
-        "Do you want to install mackup?", "brew install mackup"
-    )
+    if not is_executable_exists("mackup"):
+        if is_executable_exists("brew"):
+            confirm_then_execute_shell_command(
+                "Do you want to install mackup?",
+                "brew install mackup",
+            )
+        else:
+            print("Need homebrew, do nothing.")
+    else:
+        print("Mackup already installed.")
 
 
 @check_is_mac
@@ -91,3 +95,17 @@ def mac_install_pyenv():
             print("Need homebrew, do nothing.")
     else:
         print("Pyenv already installed.")
+
+
+@check_is_mac
+def mac_install_mackup():
+    if not is_executable_exists("rye"):
+        if is_executable_exists("brew"):
+            confirm_then_execute_shell_command(
+                "Do you want to install rye?",
+                "brew install rye",
+            )
+        else:
+            print("Need homebrew, do nothing.")
+    else:
+        print("Rye already installed.")

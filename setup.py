@@ -26,7 +26,7 @@ def main(args):
     install_rust()
     install_oh_my_zsh()
     install_oh_my_zsh_customs()
-    install_pyenv()
+    # install_pyenv()
     install_rust_apps()
     install_config_files()
 
