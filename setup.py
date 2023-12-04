@@ -27,6 +27,7 @@ def main(args):
     install_oh_my_zsh_customs()
     # install_pyenv()
     install_rye()
+    install_starship()
     install_mackup()
     install_rust_apps()
     install_config_files()

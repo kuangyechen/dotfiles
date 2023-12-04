@@ -19,7 +19,14 @@ __all__ = [
     "install_mackup",
     "install_linux_libraries",
     "install_rye",
+    "install_starship",
 ]
+
+
+def install_starship():
+    print_section("Starship")
+    linux_install_starship()
+    mac_install_starship()
 
 
 def install_rye():

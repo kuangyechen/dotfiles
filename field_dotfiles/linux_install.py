@@ -10,6 +10,7 @@ __all__ = [
     "linux_install_mackup",
     "linux_install_libraries",
     "linux_install_rye",
+    "linux_install_starship",
 ]
 
 
@@ -19,6 +20,17 @@ def check_is_linux(func):
             return func(*args, **kwargs)
 
     return wrapper
+
+
+@check_is_linux
+def linux_install_starship():
+    if not is_executable_exists("starship"):
+        confirm_then_execute_shell_command(
+            "Do you want to install starship?",
+            "curl -sS https://starship.rs/install.sh | sh",
+        )
+    else:
+        print("Starship already installed.")
 
 
 @check_is_linux

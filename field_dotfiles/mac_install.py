@@ -11,6 +11,7 @@ __all__ = [
     "mac_install_pyenv",
     "mac_install_mackup",
     "mac_install_rye",
+    "mac_install_starship",
 ]
 
 
@@ -28,6 +29,20 @@ def mac_install_zsh():
         print("WARNING!!! MacOS should always has zsh installed.")
     else:
         print("Zsh already installed.")
+
+
+@check_is_mac
+def mac_install_starship():
+    if not is_executable_exists("startship"):
+        if is_executable_exists("brew"):
+            confirm_then_execute_shell_command(
+                "Do you want to install startship?",
+                "brew install startship",
+            )
+        else:
+            print("Need homebrew, do nothing.")
+    else:
+        print("Startship already installed.")
 
 
 @check_is_mac
