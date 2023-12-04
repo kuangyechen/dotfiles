@@ -98,7 +98,7 @@ def mac_install_pyenv():
 
 
 @check_is_mac
-def mac_install_mackup():
+def mac_install_rye():
     if not is_executable_exists("rye"):
         if is_executable_exists("brew"):
             confirm_then_execute_shell_command(
