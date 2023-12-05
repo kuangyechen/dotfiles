@@ -157,7 +157,6 @@ def install_rust_apps():
         {"brew": "fd", "cargo": "fd-find"},
         {"brew": "sd", "cargo": "sd"},
         {"brew": "gitui", "cargo": "gitui"},
-        {"brew": "starship", "cargo": "starship"},
         {"brew": "zoxide", "cargo": "zoxide"},
         {"brew": "ripgrep", "cargo": "ripgrep"},
         {"brew": "ouch", "cargo": "ouch"},
