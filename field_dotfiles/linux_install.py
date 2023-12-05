@@ -47,12 +47,7 @@ def linux_install_rye():
 @check_is_linux
 def linux_install_libraries():
     if is_executable_exists("apt"):
-        command = (
-            "sudo apt install -y build-essential gdb lcov pkg-config "
-            + "libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev "
-            + "libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev "
-            + "lzma lzma-dev tk-dev uuid-dev zlib1g-dev cmake "
-        )
+        command = "sudo apt install -y build-essential"
         print("To run command:", command)
         confirm_then_execute_shell_command(
             "Do you want to install build libraries?", command
