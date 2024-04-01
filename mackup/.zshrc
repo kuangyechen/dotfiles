@@ -14,6 +14,8 @@ export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
 export PATH=${HOME}/.cargo/bin:${PATH}
 # Foundry
 export PATH=${PATH}:${HOME}/.foundry/bin
+# Docker
+export PATH=${PATH}:${HOME}/.docker/bin
 # Other PATH in linux
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
