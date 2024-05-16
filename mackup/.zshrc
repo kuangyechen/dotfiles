@@ -8,6 +8,11 @@
 # Profile
 # zmodload zsh/zprof
 
+# Utils functions
+function command_exists() {
+    command -v "$1" &> /dev/null
+}
+
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
 # Rust
@@ -19,13 +24,13 @@ export PATH=${PATH}:${HOME}/.docker/bin
 # Other PATH in linux
 if [[ ${OSTYPE} == linux-gnu ]]; then
     # Pyenv
-    if (( ! $+commands[pyenv] )); then
+    if ! command_exists pyenv; then
         export PYENV_ROOT="${HOME}/.pyenv"
         export PATH="${PYENV_ROOT}/bin:${PATH}"
     fi
 
     # Solana
-    if (( ! $+commands[solana] )); then
+    if ! command_exists solana; then
         export PATH=${HOME}/.local/share/solana/install/active_release/bin:${PATH}
     fi
 fi
@@ -33,6 +38,7 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
+
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -42,7 +48,7 @@ export ZSH=${HOME}/.oh-my-zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # Starship
-if (( $+commands[starship] )); then
+if command_exists starship; then
     eval "$(starship init zsh)"
 fi
 
@@ -97,50 +103,57 @@ fi
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     common-aliases
-    pip
     sudo
     zsh-vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
 
+
+# Pip
+if command_exists pip; then
+    plugins+=(
+        pip
+    )
+fi
+
 # Fd 
-if (( $+commands[fd] )); then
+if command_exists fd; then
     plugins+=(
         fd
     )
 fi
 
 # Ripgrep
-if (( $+commands[rg] )); then
+if command_exists rg; then
     plugins+=(
         ripgrep
     )
 fi
 
 # Git
-if (( $+commands[git] )); then
+if command_exists git; then
     plugins+=(
         git
     )
 fi
 
 # Rye
-if (( $+commands[rye] )); then
+if command_exists rye; then
     plugins+=(
         rye
     )
 fi
 
 # Docker
-if (( $+commands[docker] )); then
+if command_exists docker; then
     plugins+=(
         docker
     )
 fi
 
 # Tmux
-if (( $+commands[tmux] )); then
+if command_exists tmux; then
     plugins+=(
         tmux
     )
@@ -154,7 +167,7 @@ if [[ ${OSTYPE} == darwin* ]]; then
 fi
 
 # Rust
-if (( $+commands[rustc] )); then
+if command_exists rustc; then
     plugins+=(
         rust
     )
@@ -176,16 +189,16 @@ export LANG=en_US.UTF-8
 # else
 #     export EDITOR='vim'
 # fi
-if (( $+commands[hx] )); then
+if command_exists hx; then
     export EDITOR="hx"
-elif (( $+commands[vim] )); then
+elif command_exists vim; then
     export EDITOR="vim"
 else
     export EDITOR="vi"
 fi
 
 if [[ ${OSTYPE} == darwin* ]]; then
-    if (( $+commands[vim] )); then
+    if command_exists vim; then
         export ZVM_VI_EDITOR="vim"
     else
         export ZVM_VI_EDITOR="vi"
@@ -211,7 +224,7 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_ed25519"
 autoload zmv
 
 # exa
-if (( $+commands[exa] )); then
+if command_exists exa; then
     # general use aliases
     alias ls='exa'                                  # just replace ls by exa and allow all other exa arguments
     alias l='exa -lbF --git'                        # list, size, type, git
@@ -230,7 +243,7 @@ if [[ -f "$HOME/.rye/env" ]]; then
 fi
 
 # rm2trash
-if (( $+commands[rm2trash] )); then
+if command_exists rm2trash; then
     alias rm='rm2trash rm'
     alias ls_trash='rm2trash ls'
     alias cd_trash='cd $(rm2trash trash-path)'
@@ -238,12 +251,12 @@ if (( $+commands[rm2trash] )); then
 fi
 
 # Zoxide
-if (( $+commands[zoxide] )); then
+if command_exists zoxide; then
     eval "$(zoxide init zsh)"
 fi
 
 # Zellij
-if (( $+commands[zellij] )); then
+if command_exists zellij; then
     function zr () { zellij run --name "$*" -- zsh -ic "$*";}
     function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
     function ze () { zellij edit "$*";}
@@ -251,7 +264,7 @@ if (( $+commands[zellij] )); then
 fi
 
 # Sk
-if (( $+commands[sk] )); then
+if command_exists sk; then
     function sk_history_search() {
         local selected=$(history | sk --tac --reverse --query "$BUFFER" | awk '{$1=""; print substr($0,2)}')
         if [[ -n "$selected" ]]; then
