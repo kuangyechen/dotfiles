@@ -223,18 +223,18 @@ export SSH_KEY_PATH="${HOME}/.ssh/id_ed25519"
 # ZMV
 autoload zmv
 
-# exa
-if command_exists exa; then
+# eza
+if command_exists eza; then
     # general use aliases
-    alias ls='exa'                                  # just replace ls by exa and allow all other exa arguments
-    alias l='exa -lbF --git'                        # list, size, type, git
-    alias ll='exa -lbGF --git'                      # long, all
-    alias llm='exa -lbGd --git --sort=modified'     # list, long, sort by modification date
-    alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'      # all list
-    alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'     # all list and extended
-    alias tree='exa --tree'                         # tree view
-    alias lS='exa -1'                               # one column by just names
-    alias lt='exa --tree --level=2'                 # tree level 2
+    alias ls='eza'                                  # just replace ls by eza and allow all other eza arguments
+    alias l='eza -lbF --git'                        # list, size, type, git
+    alias ll='eza -lbGF --git'                      # long, all
+    alias llm='eza -lbGd --git --sort=modified'     # list, long, sort by modification date
+    alias la='eza -lbhHigUmuSa --time-style=long-iso --git --color-scale'      # all list
+    alias lx='eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'     # all list and extended
+    alias tree='eza --tree'                         # tree view
+    alias lS='eza -1'                               # one column by just names
+    alias lt='eza --tree --level=2'                 # tree level 2
 fi
 
 # Rye
