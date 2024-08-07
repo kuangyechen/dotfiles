@@ -26,3 +26,6 @@
 
 [skhd.files]
 "dots/skhd/skhdrc" = "~/.skhdrc"
+
+[warp.files]
+"dots/warp" = "~/.warp"
