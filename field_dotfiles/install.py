@@ -149,7 +149,7 @@ def install_rust_apps():
     apps = [
         {"brew": "zellij", "cargo": "zellij"},
         {"brew": "bat", "cargo": "bat"},
-        {"brew": "exa", "cargo": "exa"},
+        {"brew": "eza", "cargo": "eza"},
         {"brew": "bottom", "cargo": "bottom"},
         {"brew": "grex", "cargo": "grex"},
         {"brew": "dust", "cargo": "du-dust"},

@@ -1,0 +1,28 @@
+[default.files]
+# Zsh
+"dots/zsh/zshrc" = "~/.zshrc"
+"dots/zsh/zshenv" = "~/.zshenv"
+"dots/zsh/custom_management.zsh" = "~/.oh-my-zsh/custom/custom_management.zsh"
+"dots/zsh/utils.zsh" = "~/.oh-my-zsh/custom/utils.zsh"
+# Starship
+"dots/starship/starship.toml" = "~/.config/starship.toml"
+# Vim
+"dots/vim/vimrc" = "~/.vimrc"
+# Git
+"dots/git/gitconfig" = "~/.gitconfig"
+# Alacritty
+"dots/alacritty/config.yml" = "~/.config/alacritty/alacritty.yml"
+"dots/alacritty/monokai_pro.yaml" = "~/.config/alacritty/themes/monokai_pro.yaml"
+# Gitui
+"dots/gitui/key_bindings.ron" = "~/.config/gitui/key_bindings.ron"
+"dots/gitui/theme.ron" = "~/.config/gitui/theme.ron"
+# Helix
+"dots/helix/config.toml" = "~/.config/helix/config.toml"
+# Zellij
+"dots/zellij/config.kdl" = "~/.config/zellij/config.kdl"
+
+[yabai.files]
+"dots/yabai/yabairc" = "~/.yabairc"
+
+[skhd.files]
+"dots/skhd/skhdrc" = "~/.skhdrc"

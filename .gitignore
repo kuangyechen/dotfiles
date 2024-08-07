@@ -3,3 +3,8 @@
 
 # Python
 __pycache__
+
+# Dotter
+.dotter/local.toml
+.dotter/cache.toml
+.dotter/cache
