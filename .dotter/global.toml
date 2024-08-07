@@ -11,8 +11,8 @@
 # Git
 "dots/git/gitconfig" = "~/.gitconfig"
 # Alacritty
-"dots/alacritty/config.yml" = "~/.config/alacritty/alacritty.yml"
-"dots/alacritty/monokai_pro.yaml" = "~/.config/alacritty/themes/monokai_pro.yaml"
+"dots/alacritty/config.toml" = "~/.config/alacritty/alacritty.toml"
+"dots/alacritty/monokai_pro.toml" = "~/.config/alacritty/themes/monokai_pro.toml"
 # Gitui
 "dots/gitui/key_bindings.ron" = "~/.config/gitui/key_bindings.ron"
 "dots/gitui/theme.ron" = "~/.config/gitui/theme.ron"
@@ -20,6 +20,9 @@
 "dots/helix/config.toml" = "~/.config/helix/config.toml"
 # Zellij
 "dots/zellij/config.kdl" = "~/.config/zellij/config.kdl"
+# Fish
+"dots/fish/config.fish" = "~/.config/fish/config.fish"
+"dots/fish/rye.fish" = "~/.config/fish/completions/rye.fish"
 
 [yabai.files]
 "dots/yabai/yabairc" = "~/.yabairc"
@@ -28,4 +31,8 @@
 "dots/skhd/skhdrc" = "~/.skhdrc"
 
 [warp.files]
-"dots/warp" = "~/.warp"
+"dots/warp/keybindings.yaml" = "~/.warp/keybindings.yaml"
+"dots/warp/themes/standard" = "~/.warp/themes/standard"
+
+[homebrew.files]
+"dots/homebrew/Brewfile" = "~/.Brewfile"
