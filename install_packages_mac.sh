@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+set -e
+
+original_dir=$(pwd)
+
+cd "$(dirname "$0")"
+
+./install_packages.py -d -y -v -p "\
+        homebrew \
+        rye \
+        starship \
+        fish \
+        rust \
+        rust_apps \
+        fisher \
+        fish_plugins \
+    "
+
+cd "$original_dir"

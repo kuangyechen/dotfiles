@@ -12,9 +12,7 @@ fish_add_path -a {$HOME}/.docker/bin
 # Foundry
 fish_add_path -a {$HOME}/.foundry/bin
 # Rye
-if command_exists rye
-    set -Ua fish_user_paths "$HOME/.rye/shims"
-end
+set -Ua fish_user_paths "$HOME/.rye/shims"
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -29,7 +27,7 @@ if status is-interactive
         zoxide init fish | source
     end
 
-    # eza
+    # Eza
     if command_exists eza
         # general use aliases
         alias ls='eza'                                  # just replace ls by eza and allow all other eza arguments
@@ -73,7 +71,7 @@ if status is-interactive
 
     # Bat
     if command_exists bat
-        alias cat bat
+        alias cat=bat
     end
 
     # Common alias
