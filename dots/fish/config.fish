@@ -1,8 +1,3 @@
-# Utility functions
-function command_exists
-    command -v $argv[1] >/dev/null 2>&1
-end
-
 # Local bin
 fish_add_path {$HOME}/.local/bin
 # Rust
@@ -16,6 +11,11 @@ set -Ua fish_user_paths "$HOME/.rye/shims"
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
+    
+    # Utility functions
+    function command_exists
+        command -v $argv[1] >/dev/null 2>&1
+    end
 
     # Starship
     if command_exists starship
@@ -76,6 +76,7 @@ if status is-interactive
 
     # Common alias
     alias cat_fish_config='cat {$HOME}/.config/fish/config.fish'
+    alias cat_fish_variables='cat {$HOME}/.config/fish/fish_variables'
 
     # Environments
     set -g fish_key_bindings fish_vi_key_bindings
