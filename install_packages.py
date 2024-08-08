@@ -5,9 +5,9 @@ import sys
 import os
 
 # Ensure the directory of this script is in sys.path
-current_dir = os.path.dirname(os.path.realpath(__file__))
-if current_dir not in sys.path:
-    sys.path.insert(0, current_dir)
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+if SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, SCRIPT_DIR)
 
 from dotspy.utils import *
 from dotspy.register import ALL_PACKAGES
@@ -15,6 +15,20 @@ from dotspy import config
 
 
 def main(args):
+    assert (
+        os.getcwd() == SCRIPT_DIR
+    ), "Install script assume cwd == the script location, please run as ./install_packages.py"
+
+    # Setup PATH
+    prepend_to_path(
+        [
+            os.path.expanduser("~/.local/bin"),
+            os.path.expanduser("~/.cargo/bin"),
+            os.path.expanduser("~/.rye/shim"),
+            os.path.expanduser("~/.foundry/bin"),
+        ]
+    )
+
     config.dry_run = args.dry_run
     config.verbose = args.verbose
     config.yes = args.yes

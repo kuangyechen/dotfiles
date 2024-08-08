@@ -15,6 +15,7 @@ cd "$(dirname "$0")"
         rust_apps \
         fisher \
         fish_plugins \
+        dotfiles \
     "
 
 cd "$original_dir"

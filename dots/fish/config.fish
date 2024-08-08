@@ -56,6 +56,8 @@ if status is-interactive
 
     # Environments
     set -g fish_key_bindings fish_vi_key_bindings
+    set -g fish_greeting
+    set -g SSH_KEY_PATH "{$HOME}/.ssh/id_ed25519"
 
     if command_exists hx
         set -g EDITOR hx
@@ -64,5 +66,5 @@ if status is-interactive
     else
         set -g EDITOR vi
     end
-    
+
 end

@@ -12,6 +12,8 @@ __all__ = [
     "RustApps",
     "Fisher",
     "FishPlugins",
+    "Foundry",
+    "Dotfiles",
 ]
 
 
@@ -37,7 +39,7 @@ class Rye(Package):
     def name():
         return "rye"
 
-    @check_executable_exists("rye")
+    @skip_if_executable_exists("rye")
     def run(self):
         if self.config.os_type == self.config.MACOS:
             self.run_mac()
@@ -64,7 +66,7 @@ class HomeBrew(Package):
     def name():
         return "homebrew"
 
-    @check_executable_exists("brew", "homebrew")
+    @skip_if_executable_exists("brew", "homebrew")
     def run(self):
         if self.config.os_type == self.config.MACOS:
             self.run_mac()
@@ -86,7 +88,7 @@ class Starship(Package):
     def name():
         return "starship"
 
-    @check_executable_exists("starship")
+    @skip_if_executable_exists("starship")
     def run(self):
         if self.config.os_type == self.config.MACOS:
             self.run_mac()
@@ -113,7 +115,7 @@ class Fish(Package):
     def name():
         return "fish"
 
-    @check_executable_exists("fish")
+    @skip_if_executable_exists("fish")
     def run(self):
         if self.config.os_type == self.config.MACOS:
             self.run_mac()
@@ -137,7 +139,7 @@ class Rust(Package):
     def name():
         return "rust"
 
-    @check_executable_exists("cargo")
+    @skip_if_executable_exists("cargo")
     def run(self):
         if self.config.os_type in {self.config.MACOS, self.config.LINUX}:
             confirm_then_execute_shell_command(
@@ -222,30 +224,61 @@ class FishPlugins(Package):
     def __init__(self, config):
         super().__init__(config)
 
-        self.plugins = ["jhillyerd/plugin-git"]
+        self.plugins = ["jhillyerd/plugin-git", "LumaKernel/fish-fd-complete"]
 
     @staticmethod
     def name():
         return "fish_plugins"
 
+    @need_executable_exists("fish")
     def run(self):
         if self.config.os_type in {self.config.MACOS, self.config.LINUX}:
-            self.install_plugins(self.plugins)
+            result = execute_shell_command('fish -c "fisher --version"')
+            if result == 0:
+                for plugin in self.plugins:
+                    confirm_then_execute_shell_command(
+                        f"Do you want to install {plugin}?",
+                        f'fish -c "fisher install {plugin}"',
+                    )
+            else:
+                print("Need fisher, skipped.")
         else:
             print(f"Cannot run for os_type: {self.config.os_type}")
 
-    def install_plugins(self, targets):
-        if isinstance(targets, str):
-            targets_str = targets
-        elif isinstance(targets, list):
-            targets_str = " ".join(targets)
-        else:
-            raise ValueError(f"Get targets: {targets}")
 
-        if is_executable_exists("fisher"):
+class Foundry(Package):
+    def __init__(self, config):
+        super().__init__(config)
+
+    @staticmethod
+    def name():
+        return "foundry"
+
+    @skip_if_executable_exists("foundryup")
+    def run(self):
+        if self.config.os_type in {self.config.MACOS, self.config.LINUX}:
             confirm_then_execute_shell_command(
-                f"Do you want to install {targets_str}?",
-                f"fisher install {targets_str}",
+                "Do you want to install foundryup?",
+                "curl -L https://foundry.paradigm.xyz | bash",
             )
         else:
-            print("Need fisher, do nothing.")
+            print(f"Cannot run for os_type: {self.config.os_type}")
+
+
+class Dotfiles(Package):
+    def __init__(self, config):
+        super().__init__(config)
+
+    @staticmethod
+    def name():
+        return "dotfiles"
+
+    @need_executable_exists("dotter")
+    def run(self):
+        if self.config.os_type in {self.config.MACOS, self.config.LINUX}:
+            confirm_then_execute_shell_command(
+                "Do you want to link dotfiles with dotter?",
+                "dotter -v",
+            )
+        else:
+            print(f"Cannot run for os_type: {self.config.os_type}")

@@ -18,8 +18,11 @@ __all__ = [
     "linux_install",
     "run_os_type_func",
     "check_os",
-    "check_executable_exists",
+    "skip_if_executable_exists",
     "cargo_install",
+    "prepend_to_path",
+    "append_to_path",
+    "need_executable_exists",
 ]
 
 
@@ -68,14 +71,16 @@ def confirm_then_execute(prompt):
 
 def execute_shell_command(command):
     if not config.dry_run:
-        return subprocess.run([command], shell=True)
+        result = subprocess.run([command], shell=True)
+        return result.returncode
     else:
         print_verbose(f"Dry run command: {command}")
+        return 0
 
 
 def confirm_then_execute_shell_command(prompt, command):
     func = confirm_then_execute(prompt)(lambda: execute_shell_command(command))
-    func()
+    return func()
 
 
 def is_executable_exists(executable):
@@ -166,7 +171,7 @@ def check_os(os_type):
     return dec
 
 
-def check_executable_exists(executable, package_name=None):
+def skip_if_executable_exists(executable, package_name=None):
     def dec(func):
         package = package_name or executable
 
@@ -179,3 +184,39 @@ def check_executable_exists(executable, package_name=None):
         return wrapper
 
     return dec
+
+
+def need_executable_exists(executable):
+    def dec(func):
+
+        def wrapper(*args, **kwargs):
+            if is_executable_exists(executable):
+                return func(*args, **kwargs)
+            else:
+                print(f"Need {executable}, skipped.")
+
+        return wrapper
+
+    return dec
+
+
+def append_to_path(directories):
+    """Append a directory to the PATH environment variable."""
+    # Get the current PATH
+    current_path = os.environ.get("PATH", "")
+    path_list = current_path.split(os.pathsep)
+
+    os.environ["PATH"] = os.pathsep.join(
+        path_list + [dir_ for dir_ in directories if dir_ not in path_list]
+    )
+
+
+def prepend_to_path(directories):
+    """Append a directory to the PATH environment variable."""
+    # Get the current PATH
+    current_path = os.environ.get("PATH", "")
+    path_list = current_path.split(os.pathsep)
+
+    os.environ["PATH"] = os.pathsep.join(
+        [dir_ for dir_ in directories if dir_ not in path_list] + path_list
+    )
