@@ -49,34 +49,10 @@ if status is-interactive
         alias empty_trash='rm2trash empty'
     end
 
-    # Zellij
-    if command_exists zellij
-        function zr
-            set -l args (string join " " $argv)
-            zellij run --name "$args" -- zsh -ic "$args"
-        end
-        function zrf
-            set -l args (string join " " $argv)
-            zellij run --name "$args" --floating -- zsh -ic "$args"
-        end
-        function ze
-            set -l args (string join " " $argv)
-            zellij edit "$args"
-        end
-        function zef
-            set -l args (string join " " $argv)
-            zellij edit --floating "$args"
-        end
-    end
-
     # Bat
     if command_exists bat
         alias cat=bat
     end
-
-    # Common alias
-    alias cat_fish_config='cat {$HOME}/.config/fish/config.fish'
-    alias cat_fish_variables='cat {$HOME}/.config/fish/fish_variables'
 
     # Environments
     set -g fish_key_bindings fish_vi_key_bindings

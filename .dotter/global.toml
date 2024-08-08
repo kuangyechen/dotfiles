@@ -22,7 +22,8 @@
 "dots/zellij/config.kdl" = "~/.config/zellij/config.kdl"
 # Fish
 "dots/fish/config.fish" = "~/.config/fish/config.fish"
-"dots/fish/rye.fish" = "~/.config/fish/completions/rye.fish"
+"dots/fish/completions" = "~/.config/fish/completions"
+"dots/fish/functions" = "~/.config/fish/functions"
 
 [yabai.files]
 "dots/yabai/yabairc" = "~/.yabairc"
