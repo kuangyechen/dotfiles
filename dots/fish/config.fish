@@ -56,4 +56,13 @@ if status is-interactive
 
     # Environments
     set -g fish_key_bindings fish_vi_key_bindings
+
+    if command_exists hx
+        set -g EDITOR hx
+    else if command_exists vim
+        set -g EDITOR vim
+    else
+        set -g EDITOR vi
+    end
+    
 end
