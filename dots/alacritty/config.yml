@@ -776,7 +776,7 @@ key_bindings:
     - { key: B, mods: Alt, chars: "\x1bb" }
     - { key: C, mods: Alt, chars: "\x1bc" }
     - { key: D, mods: Alt, chars: "\x1bd" }
-    - { key: E, mods: Alt, chars: "\x1be" }
+    # - { key: E, mods: Alt, chars: "\x1be" }
     - { key: F, mods: Alt, chars: "\x1bf" }
     - { key: G, mods: Alt, chars: "\x1bg" }
     - { key: H, mods: Alt, chars: "\x1bh" }
