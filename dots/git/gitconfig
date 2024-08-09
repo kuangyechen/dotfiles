@@ -1,3 +1,5 @@
 [user]
 	email = chen.kuangye@gmail.com
 	name = Kuangye Chen
+[init]
+	defaultBranch = master
