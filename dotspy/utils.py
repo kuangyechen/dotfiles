@@ -23,7 +23,47 @@ __all__ = [
     "prepend_to_path",
     "append_to_path",
     "need_executable_exists",
+    "rye_install",
 ]
+
+
+def skip_if_executable_exists(executable, package_name=None):
+    def dec(func):
+        package = package_name or executable
+
+        def wrapper(*args, **kwargs):
+            if not is_executable_exists(executable):
+                return func(*args, **kwargs)
+            else:
+                print(f"{package} already exists, skipped.")
+
+        return wrapper
+
+    return dec
+
+
+def need_executable_exists(executable):
+    def dec(func):
+
+        def wrapper(*args, **kwargs):
+            if is_executable_exists(executable):
+                return func(*args, **kwargs)
+            else:
+                print(f"Need {executable}, skipped.")
+
+        return wrapper
+
+    return dec
+
+
+def parse_targets(targets):
+    if isinstance(targets, str):
+        targets_str = targets
+    elif isinstance(targets, list):
+        targets_str = " ".join(targets)
+    else:
+        raise ValueError(f"Get targets: {targets}")
+    return targets_str
 
 
 def print_verbose(*args):
@@ -94,30 +134,28 @@ def git_clone(target, repo):
         print("{} already installed.".format(target))
 
 
+@need_executable_exists("brew")
 def homebrew_install(targets):
-    if is_executable_exists("brew"):
-        if isinstance(targets, str):
-            targets_str = targets
-        elif isinstance(targets, list):
-            targets_str = " ".join(targets)
-        else:
-            raise ValueError(f"Get targets: {targets}")
+    targets_str = parse_targets(targets)
 
-        confirm_then_execute_shell_command(
-            f"Do you want to install {targets_str}?",
-            f"brew install {targets_str}",
-        )
-    else:
-        print("Need homebrew, do nothing.")
+    confirm_then_execute_shell_command(
+        f"Do you want to install {targets_str}?",
+        f"brew install {targets_str}",
+    )
+
+
+@need_executable_exists("rye")
+def rye_install(targets):
+    targets_str = parse_targets(targets)
+
+    confirm_then_execute_shell_command(
+        f"Do you want to install {targets_str}?",
+        f"rye install {targets_str}",
+    )
 
 
 def linux_install(targets):
-    if isinstance(targets, str):
-        targets_str = targets
-    elif isinstance(targets, list):
-        targets_str = " ".join(targets)
-    else:
-        raise ValueError(f"Get targets: {targets}")
+    targets_str = parse_targets(targets)
 
     if is_executable_exists("apt"):
         command = f"sudo apt install -y {targets_str}"
@@ -131,21 +169,14 @@ def linux_install(targets):
         )
 
 
+@need_executable_exists("cargo")
 def cargo_install(targets):
-    if isinstance(targets, str):
-        targets_str = targets
-    elif isinstance(targets, list):
-        targets_str = " ".join(targets)
-    else:
-        raise ValueError(f"Get targets: {targets}")
+    targets_str = parse_targets(targets)
 
-    if is_executable_exists("cargo"):
-        confirm_then_execute_shell_command(
-            f"Do you want to install {targets_str}?",
-            f"cargo install --locked {targets_str}",
-        )
-    else:
-        print("Need cargo, do nothing.")
+    confirm_then_execute_shell_command(
+        f"Do you want to install {targets_str}?",
+        f"cargo install --locked {targets_str}",
+    )
 
 
 def run_os_type_func(func_map):
@@ -165,35 +196,6 @@ def check_os(os_type):
                 raise RuntimeError(
                     f"Expect OS type and dist: {os_type}, but run in {config.os_type}"
                 )
-
-        return wrapper
-
-    return dec
-
-
-def skip_if_executable_exists(executable, package_name=None):
-    def dec(func):
-        package = package_name or executable
-
-        def wrapper(*args, **kwargs):
-            if not is_executable_exists(executable):
-                return func(*args, **kwargs)
-            else:
-                print(f"{package} already exists, skipped.")
-
-        return wrapper
-
-    return dec
-
-
-def need_executable_exists(executable):
-    def dec(func):
-
-        def wrapper(*args, **kwargs):
-            if is_executable_exists(executable):
-                return func(*args, **kwargs)
-            else:
-                print(f"Need {executable}, skipped.")
 
         return wrapper
 

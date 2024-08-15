@@ -14,6 +14,7 @@ __all__ = [
     "FishPlugins",
     "Foundry",
     "Dotfiles",
+    "PythonApps",
 ]
 
 
@@ -46,7 +47,7 @@ class Rye(Package):
         elif self.config.os_type == self.config.LINUX:
             self.run_linux()
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
     def run_mac(self):
         homebrew_install("rye")
@@ -71,7 +72,7 @@ class HomeBrew(Package):
         if self.config.os_type == self.config.MACOS:
             self.run_mac()
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
     def run_mac(self):
         confirm_then_execute_shell_command(
@@ -95,7 +96,7 @@ class Starship(Package):
         elif self.config.os_type == self.config.LINUX:
             self.run_linux()
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
     def run_mac(self):
         homebrew_install("starship")
@@ -122,7 +123,7 @@ class Fish(Package):
         elif self.config.os_type == self.config.LINUX:
             self.run_linux()
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
     def run_mac(self):
         homebrew_install("fish")
@@ -147,7 +148,7 @@ class Rust(Package):
                 "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh",
             )
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
 
 class RustApps(Package):
@@ -169,6 +170,8 @@ class RustApps(Package):
             {"brew": "ripgrep", "cargo": "ripgrep"},
             {"brew": "ouch", "cargo": "ouch"},
             {"brew": "dotter", "cargo": "dotter"},
+            {"brew": "tokei", "cargo": "tokei"},
+            {"brew": "rm-improved", "cargo": "rm-improved"},
         ]
 
     @staticmethod
@@ -181,15 +184,19 @@ class RustApps(Package):
         elif self.config.os_type == self.config.LINUX:
             self.run_linux()
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
     def run_linux(self):
-        cargo_install([app["cargo"] for app in self.apps])
+        cargo_install([app["cargo"] for app in self.apps if app["cargo"] is not None])
 
     def run_mac(self):
         homebrew_install([app["brew"] for app in self.apps if app["brew"] is not None])
 
-        apps = [app["brew"] for app in self.apps if app["brew"] is None]
+        apps = [
+            app["cargo"]
+            for app in self.apps
+            if app["brew"] is None and app["cargo"] is not None
+        ]
         if len(apps) > 0:
             cargo_install(apps)
 
@@ -208,7 +215,7 @@ class Fisher(Package):
         elif self.config.os_type == self.config.LINUX:
             self.run_linux()
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
     def run_linux(self):
         confirm_then_execute_shell_command(
@@ -243,7 +250,7 @@ class FishPlugins(Package):
             else:
                 print("Need fisher, skipped.")
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
 
 class Foundry(Package):
@@ -262,7 +269,7 @@ class Foundry(Package):
                 "curl -L https://foundry.paradigm.xyz | bash",
             )
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
 
 class Dotfiles(Package):
@@ -281,4 +288,39 @@ class Dotfiles(Package):
                 "dotter -v",
             )
         else:
-            print(f"Cannot run for os_type: {self.config.os_type}")
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
+
+
+class PythonApps(Package):
+    def __init__(self, config):
+        super().__init__(config)
+
+        self.apps = [
+            {"brew": "maturin", "pypi": "maturin"},
+        ]
+
+    @staticmethod
+    def name():
+        return "python_apps"
+
+    def run(self):
+        if self.config.os_type == self.config.MACOS:
+            self.run_mac()
+        elif self.config.os_type == self.config.LINUX:
+            self.run_linux()
+        else:
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
+
+    def run_linux(self):
+        rye_install([app["pypi"] for app in self.apps if app["pypi"] is not None])
+
+    def run_mac(self):
+        homebrew_install([app["brew"] for app in self.apps if app["brew"] is not None])
+
+        apps = [
+            app["pypi"]
+            for app in self.apps
+            if app["brew"] is None and app["pypi"] is not None
+        ]
+        if len(apps) > 0:
+            rye_install(apps)

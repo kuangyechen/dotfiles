@@ -51,12 +51,11 @@ if status is-interactive
         abbr --add lt eza --tree --level=2
     end
 
-    # rm2trash
-    if command_exists rm2trash
-        abbr --add rm rm2trash rm
-        abbr --add ls_trash rm2trash ls
-        abbr --add cd_trash cd $(rm2trash trash-path)
-        abbr --add empty_trash rm2trash empty
+    # Rip
+    if command_exists rip
+        abbr --add unrip rip --unbury
+        abbr --add ls_trash rip --seance
+        abbr --add empty_trash rip --decompose
     end
 
     # Bat

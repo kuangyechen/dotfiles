@@ -11,4 +11,5 @@ ALL_PACKAGES = {
     FishPlugins.name(): FishPlugins,
     Foundry.name(): Foundry,
     Dotfiles.name(): Dotfiles,
+    PythonApps.name(): PythonApps,
 }

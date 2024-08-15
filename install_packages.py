@@ -40,12 +40,11 @@ def main(args):
 
     for package in args.packages:
         print_section(f"Package: {package}")
-        pack = ALL_PACKAGES.get(package, None)
-        if pack is None:
+        package_class = ALL_PACKAGES.get(package, None)
+        if package_class is None:
             raise ValueError(f"Unknown package: {package}")
         else:
-            pack = pack(config)
-            pack.run()
+            package_class(config).run()
 
 
 def split_by_whitespace(string):
