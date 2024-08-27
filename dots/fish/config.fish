@@ -60,21 +60,23 @@ if status is-interactive
 
     # Bat
     if command_exists bat
-        set -l CAT bat
+        set -g FIELD_CAT_BIN bat
         abbr --add cat bat
     else
-        set -l CAT cat
+        set -g FIELD_CAT_BIN cat
     end
 
-    # Alias
-    abbr --add cat_fish_config {$CAT} {$HOME}/.config/fish/config.fish
-    abbr --add cat_fish_variable {$CAT} {$HOME}/.config/fish/fish_variables
-
     # Environments
+    set -g fish_config {$HOME}/.config/fish/config.fish
+    set -g fish_variables {$HOME}/.config/fish/fish_variables
     set -g fish_key_bindings fish_vi_key_bindings
     set -g fish_greeting
     set -gx SSH_KEY_PATH {$HOME}/.ssh/id_ed25519
     set -gx LANG en_US.UTF-8
+
+    # Alias
+    abbr --add cat_fish_config {$FIELD_CAT_BIN} {$fish_config}
+    abbr --add cat_fish_variable {$FIELD_CAT_BIN} {$fish_variables}
 
     if command_exists hx
         set -gx EDITOR hx
