@@ -1,5 +1,6 @@
 # Local bin
 fish_add_path {$HOME}/.local/bin
+fish_add_path /usr/local/sbin
 # Rust
 fish_add_path {$HOME}/.cargo/bin
 # Docker
@@ -70,7 +71,7 @@ if status is-interactive
     set -g fish_config {$HOME}/.config/fish/config.fish
     set -g fish_variables {$HOME}/.config/fish/fish_variables
     set -g fish_key_bindings fish_vi_key_bindings
-    set -g fish_greeting
+    set -g fish_greeting "Fish customized by Field."
     set -gx SSH_KEY_PATH {$HOME}/.ssh/id_ed25519
     set -gx LANG en_US.UTF-8
 
