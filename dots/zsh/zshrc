@@ -14,7 +14,7 @@ function command_exists() {
 }
 
 # If you come from bash you might have to change your $PATH.
-export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin"
+export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin:/opt/homebrew/bin"
 # Rust
 export PATH=${HOME}/.cargo/bin:${PATH}
 # Foundry
