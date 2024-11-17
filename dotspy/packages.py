@@ -15,6 +15,8 @@ __all__ = [
     "Foundry",
     "Dotfiles",
     "PythonApps",
+    "VimPlug",
+    "OhMyZsh",
 ]
 
 
@@ -172,6 +174,7 @@ class RustApps(Package):
             {"brew": "dotter", "cargo": "dotter"},
             {"brew": "tokei", "cargo": "tokei"},
             {"brew": "rm-improved", "cargo": "rm-improved"},
+            {"brew": "just", "cargo": "just"},
         ]
 
     @staticmethod
@@ -324,3 +327,39 @@ class PythonApps(Package):
         ]
         if len(apps) > 0:
             rye_install(apps)
+
+
+class VimPlug(Package):
+    def __init__(self, config):
+        super().__init__(config)
+
+    @staticmethod
+    def name():
+        return "VimPlug"
+
+    def run(self):
+        if self.config.os_type in {self.config.MACOS, self.config.LINUX}:
+            confirm_then_execute_shell_command(
+                "Do you want to install vim plug?",
+                "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim",
+            )
+        else:
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
+
+
+class OhMyZsh(Package):
+    def __init__(self, config):
+        super().__init__(config)
+
+    @staticmethod
+    def name():
+        return "OhMyZsh"
+
+    def run(self):
+        if self.config.os_type in {self.config.MACOS, self.config.LINUX}:
+            confirm_then_execute_shell_command(
+                "Do you want to install oh-my-zsh?",
+                'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended',
+            )
+        else:
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")

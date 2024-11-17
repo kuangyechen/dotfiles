@@ -12,4 +12,6 @@ ALL_PACKAGES = {
     Foundry.name(): Foundry,
     Dotfiles.name(): Dotfiles,
     PythonApps.name(): PythonApps,
+    OhMyZsh.name(): OhMyZsh,
+    VimPlug.name(): VimPlug,
 }

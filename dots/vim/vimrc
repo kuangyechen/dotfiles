@@ -20,13 +20,13 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/a.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdcommenter'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 
 "------ Cpp -------
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
