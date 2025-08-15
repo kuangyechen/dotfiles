@@ -315,7 +315,7 @@ class PythonApps(Package):
             raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
 
     def run_linux(self):
-        rye_install([app["pypi"] for app in self.apps if app["pypi"] is not None])
+        uv_install([app["pypi"] for app in self.apps if app["pypi"] is not None])
 
     def run_mac(self):
         homebrew_install([app["brew"] for app in self.apps if app["brew"] is not None])
@@ -363,3 +363,29 @@ class OhMyZsh(Package):
             )
         else:
             raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
+
+
+class Uv(Package):
+    def __init__(self, config):
+        super().__init__(config)
+
+    @staticmethod
+    def name():
+        return "uv"
+
+    def run(self):
+        if self.config.os_type == self.config.MACOS:
+            self.run_mac()
+        elif self.config.os_type == self.config.LINUX:
+            self.run_linux()
+        else:
+            raise RuntimeError(f"Cannot run for os_type: {self.config.os_type}")
+
+    def run_mac(self):
+        homebrew_install("uv")
+
+    def run_linux(self):
+        confirm_then_execute_shell_command(
+            "Do you want to install uv?",
+            "curl -LsSf https://astral.sh/uv/install.sh | sh",
+        )

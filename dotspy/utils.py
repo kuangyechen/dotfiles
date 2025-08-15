@@ -24,6 +24,7 @@ __all__ = [
     "append_to_path",
     "need_executable_exists",
     "rye_install",
+    "uv_install",
 ]
 
 
@@ -141,6 +142,16 @@ def homebrew_install(targets):
     confirm_then_execute_shell_command(
         f"Do you want to install {targets_str}?",
         f"brew install {targets_str}",
+    )
+
+
+@need_executable_exists("uv")
+def uv_install(targets):
+    targets_str = parse_targets(targets)
+
+    confirm_then_execute_shell_command(
+        f"Do you want to install {targets_str}?",
+        f"uv tool install {targets_str}",
     )
 
 
