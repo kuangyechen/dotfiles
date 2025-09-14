@@ -14,4 +14,5 @@ ALL_PACKAGES = {
     PythonApps.name(): PythonApps,
     OhMyZsh.name(): OhMyZsh,
     VimPlug.name(): VimPlug,
+    Uv.name(): Uv,
 }
