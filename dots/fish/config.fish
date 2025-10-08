@@ -8,8 +8,6 @@ fish_add_path {$HOME}/.cargo/bin
 fish_add_path -a {$HOME}/.docker/bin
 # Foundry
 fish_add_path -a {$HOME}/.foundry/bin
-# Rye
-set -Ua fish_user_paths "$HOME/.rye/shims"
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
