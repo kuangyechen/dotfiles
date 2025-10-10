@@ -1,20 +1,20 @@
 # Local bin
-fish_add_path {$HOME}/.local/bin
-fish_add_path /usr/local/sbin
-fish_add_path /opt/homebrew/bin
+fish_add_path -g {$HOME}/.local/bin
+fish_add_path -g /usr/local/sbin
+fish_add_path -g /opt/homebrew/bin
 # Rust
-fish_add_path {$HOME}/.cargo/bin
+fish_add_path -ag {$HOME}/.cargo/bin
 # pnpm
 set -gx PNPM_HOME {$HOME}/.local/share/pnpm
 fish_add_path -g {$PNPM_HOME}
 # Docker
-fish_add_path -a {$HOME}/.docker/bin
+fish_add_path -ag {$HOME}/.docker/bin
 # Foundry
-fish_add_path -a {$HOME}/.foundry/bin
+fish_add_path -ag {$HOME}/.foundry/bin
 
-# Source secrets
-if test -f ~/.config/fish/secrets.fish
-    source ~/.config/fish/secrets.fish
+# Source local env
+if test -f ~/.config/fish/local_env.fish
+    source ~/.config/fish/local_env.fish
 end
 
 if status is-interactive

@@ -287,8 +287,8 @@ case ":$PATH:" in
 esac
 
 # Source secrets
-if [[ -f ~/.config/secrets ]]; then
-    source ~/.config/secrets
+if [[ -f ~/.config/local_env ]]; then
+    source ~/.config/local_env
 fi
 
 # Profile
