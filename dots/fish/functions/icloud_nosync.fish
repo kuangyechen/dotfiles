@@ -1,4 +1,10 @@
 function icloud_nosync --description 'Add nosync attribute to file or folder to prevent iCloud syncing'
+    # Check if running on macOS
+    if not test (uname) = Darwin
+        echo "Error: icloud_nosync only works on macOS"
+        return 1
+    end
+
     if test (count $argv) -eq 0
         echo "Usage: icloud_nosync <file_or_folder>"
         echo "Example: icloud_nosync node_modules"

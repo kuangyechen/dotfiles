@@ -4,10 +4,16 @@ fish_add_path /usr/local/sbin
 fish_add_path /opt/homebrew/bin
 # Rust
 fish_add_path {$HOME}/.cargo/bin
+# pnpm
+set -gx PNPM_HOME {$HOME}/.local/share/pnpm
+fish_add_path -g {$PNPM_HOME}
 # Docker
 fish_add_path -a {$HOME}/.docker/bin
 # Foundry
 fish_add_path -a {$HOME}/.foundry/bin
+
+# Source secrets
+source ~/.config/fish/secrets.fish
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -85,5 +91,12 @@ if status is-interactive
     else
         set -gx EDITOR vi
     end
+
+    # Functions aliases
+    abbr --add hs history_search
+    abbr --add ze zellij_edit
+    abbr --add zef zellij_edit --float
+    abbr --add zr zellij_run
+    abbr --add zrf zellij_run --float
 
 end

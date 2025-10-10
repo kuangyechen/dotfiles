@@ -24,6 +24,9 @@
 "dots/fish/config.fish" = "~/.config/fish/config.fish"
 "dots/fish/completions" = { target = "~/.config/fish/completions", type = "symbolic" }
 "dots/fish/functions" = "~/.config/fish/functions"
+# Codex
+"dots/codex/config.toml" = "~/.codex/config.toml"
+"dots/codex/auth.json" = "~/.codex/auth.json"
 
 [yabai.files]
 "dots/yabai/yabairc" = "~/.yabairc"

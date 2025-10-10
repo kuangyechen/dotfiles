@@ -279,6 +279,16 @@ function zvm_after_lazy_keybindings() {
     fi
 }
 
+# pnpm
+export PNPM_HOME="/home/field/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# Source secrets
+source ~/.config/secrets
+
 # Profile
 # zprof
 export PATH=${HOME}/.local/bin:$PATH

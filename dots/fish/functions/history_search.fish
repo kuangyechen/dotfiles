@@ -1,4 +1,4 @@
-function search_history
+function history_search --description "Search through command history using sk fuzzy finder"
     # Using sk to search through the command history
     set target (history | sk --query "$argv" --prompt "History > ")
 
