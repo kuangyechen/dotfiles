@@ -21,7 +21,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 
     # Utility functions
-    function command_exists
+    function command_exists --description "Check if a command exists"
         command -v $argv[1] >/dev/null 2>&1
     end
 
