@@ -13,7 +13,9 @@ fish_add_path -a {$HOME}/.docker/bin
 fish_add_path -a {$HOME}/.foundry/bin
 
 # Source secrets
-source ~/.config/fish/secrets.fish
+if test -f ~/.config/fish/secrets.fish
+    source ~/.config/fish/secrets.fish
+end
 
 if status is-interactive
     # Commands to run in interactive sessions can go here

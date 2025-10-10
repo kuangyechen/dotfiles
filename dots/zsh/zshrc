@@ -287,7 +287,9 @@ case ":$PATH:" in
 esac
 
 # Source secrets
-source ~/.config/secrets
+if [[ -f ~/.config/secrets ]]; then
+    source ~/.config/secrets
+fi
 
 # Profile
 # zprof
