@@ -11,3 +11,5 @@ wire_api = "responses"
 requires_openai_auth = true
 env_key = "CRS_OAI_KEY"
 
+[tools]
+web_search = true
