@@ -11,3 +11,8 @@ wire_api = "responses"
 requires_openai_auth = true
 env_key = "CRS_OAI_KEY"
 
+[tools]
+web_search = true
+
+[sandbox_workspace_write]
+network_access = true
