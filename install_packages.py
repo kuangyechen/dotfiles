@@ -15,9 +15,9 @@ from dotspy import config
 
 
 def main(args):
-    assert (
-        os.getcwd() == SCRIPT_DIR
-    ), "Install script assume cwd == the script location, please run as ./install_packages.py"
+    assert os.getcwd() == SCRIPT_DIR, (
+        "Install script assume cwd == the script location, please run as ./install_packages.py"
+    )
 
     # Setup PATH
     prepend_to_path(

@@ -1,1 +1,1 @@
-packages = ["default", "skhd", "yabai", "warp_mac", "homebrew"]
+packages = ["default", "skhd", "yabai", "warp.mac", "homebrew"]

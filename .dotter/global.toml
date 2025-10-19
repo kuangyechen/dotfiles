@@ -44,3 +44,9 @@
 
 [homebrew.files]
 "dots/homebrew/Brewfile" = "~/.Brewfile"
+
+[zed_mac.files]
+"dots/zed/settings.json" = "~/.config/zed/settings.json"
+
+[zed_linux.files]
+"dots/zed/settings.json" = "~/.local/share/zed/settings.json"

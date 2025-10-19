@@ -45,7 +45,6 @@ def skip_if_executable_exists(executable, package_name=None):
 
 def need_executable_exists(executable):
     def dec(func):
-
         def wrapper(*args, **kwargs):
             if is_executable_exists(executable):
                 return func(*args, **kwargs)

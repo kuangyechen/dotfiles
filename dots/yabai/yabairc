@@ -90,7 +90,7 @@ yabai -m config external_bar all:1:1
 # Bypass yabai control
 yabai -m rule --add app="Preferences$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="Settings$" manage=off mouse_follows_focus=off
-yabai -m rule --add app="^Raycast$" manage=off mouse_follows_focus=off 
+yabai -m rule --add app="^Raycast$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Messages$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Reminders$" manage=off mouse_follows_focus=off
 yabai -m rule --add app="^Logi Options$" manage=off mouse_follows_focus=off

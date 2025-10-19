@@ -1,4 +1,4 @@
-" Not compatible with vi 
+" Not compatible with vi
 set nocompatible
 
 "----------------------- Vim Plug -------------------------
@@ -41,7 +41,7 @@ set backspace=indent,eol,start
 set ruler
 " Show line number.
 set number
-" Show cursor's line and column. 
+" Show cursor's line and column.
 set cursorline
 set cursorcolumn
 " Show command.
@@ -73,15 +73,15 @@ let &tabstop=default_indent
 let &softtabstop=default_indent
 " Shift width.
 let &shiftwidth=default_indent
-" Fold based on syntax. 
+" Fold based on syntax.
 set foldmethod=indent
 " No fold at startup.
 set foldlevelstart=99
-" No line wrapping. 
+" No line wrapping.
 set nowrap
 " Syntax coloring.
 syntax on
-" Use mouse. 
+" Use mouse.
 set mouse=a
 " Clear line number column color.
 highlight clear SignColumn
@@ -116,7 +116,7 @@ catch
 endtry
 
 "---- vim-airlines ----
-" Show status. 
+" Show status.
 set laststatus=2
 
 " Fancy arrow symbols.
@@ -159,19 +159,19 @@ highlight PmenuSel ctermfg=0 ctermbg=33 guifg=#AFD700 guibg=#106900
 let g:ycm_complete_in_comments=1
 " Allow load config without confirm.
 let g:ycm_confirm_extra_conf=0
-" Completion from tags. 
+" Completion from tags.
 let g:ycm_collect_identifiers_from_tags_files=1
-" STD tags 
+" STD tags
 set tags+=/data/misc/software/misc./vim/stdcpp.tags
-" Only list. 
+" Only list.
 set completeopt-=preview
-" No cache. 
+" No cache.
 let g:ycm_cache_omnifunc=1
-" Syntax.         
+" Syntax.
 let g:ycm_seed_identifiers_with_syntax=1
 " YCM FixIt.
 map <F9> :YcmCompleter FixIt<CR>
-" Jump. 
+" Jump.
 nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 " Interpreter
