@@ -8,6 +8,19 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
     // Appearance
+    "ssh_connections": [
+    {
+      "host": "ddns.cnhhome.com",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home/field/Workspaces/dotfiles"
+          ]
+        }
+      ]
+    }
+  ],
     "icon_theme": {
         "mode": "dark",
         "light": "Zed (Default)",

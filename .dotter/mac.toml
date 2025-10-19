@@ -1,0 +1,18 @@
+[yabai.files]
+"dots/yabai/yabairc" = "~/.yabairc"
+
+[skhd.files]
+"dots/skhd/skhdrc" = "~/.skhdrc"
+
+[warp.files]
+"dots/warp/keybindings.yaml" = "~/.warp/keybindings.yaml"
+"dots/warp/themes/standard" = "~/.warp/themes/standard"
+
+[homebrew.files]
+"dots/homebrew/Brewfile" = "~/.Brewfile"
+
+[zed.files]
+"dots/zed/settings.json" = "~/.config/zed/settings.json"
+
+[aerospace.files]
+"dots/aerospace/aerospace.toml" = "~/.config/aerospace/aerospace.toml"

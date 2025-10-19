@@ -1,5 +1,5 @@
 
-includes = [".dotter/mac.toml"]
+includes = [".dotter/ubuntu.toml"]
 
 packages = [
     "zsh",
@@ -12,8 +12,4 @@ packages = [
     "zellij",
     "fish",
     "codex",
-    "warp",
-    "homebrew"
-    "zed",
-    "aerospace",
 ]

@@ -1,52 +1,37 @@
-[default.files]
-# Zsh
+[zsh.files]
 "dots/zsh/zshrc" = "~/.zshrc"
 "dots/zsh/zshenv" = "~/.zshenv"
 "dots/zsh/custom_management.zsh" = "~/.oh-my-zsh/custom/custom_management.zsh"
 "dots/zsh/utils.zsh" = "~/.oh-my-zsh/custom/utils.zsh"
-# Starship
+
+[starship.files]
 "dots/starship/starship.toml" = "~/.config/starship.toml"
-# Vim
+
+[vim.files]
 "dots/vim/vimrc" = "~/.vimrc"
-# Git
+
+[git.files]
 "dots/git/gitconfig" = "~/.gitconfig"
-# Alacritty
+
+[alacritty.files]
 "dots/alacritty/config.toml" = "~/.config/alacritty/alacritty.toml"
 "dots/alacritty/monokai_pro.toml" = "~/.config/alacritty/themes/monokai_pro.toml"
-# Gitui
+
+[gitui.files]
 "dots/gitui/key_bindings.ron" = "~/.config/gitui/key_bindings.ron"
 "dots/gitui/theme.ron" = "~/.config/gitui/theme.ron"
-# Helix
+
+[helix.files]
 "dots/helix/config.toml" = "~/.config/helix/config.toml"
-# Zellij
+
+[zellij.files]
 "dots/zellij/config.kdl" = "~/.config/zellij/config.kdl"
-# Fish
+
+[fish.files]
 "dots/fish/config.fish" = "~/.config/fish/config.fish"
 "dots/fish/completions" = { target = "~/.config/fish/completions", type = "symbolic" }
 "dots/fish/functions" = "~/.config/fish/functions"
-# Codex
+
+[codex.files]
 "dots/codex/config.toml" = "~/.codex/config.toml"
 "dots/codex/auth.json" = "~/.codex/auth.json"
-
-[yabai.files]
-"dots/yabai/yabairc" = "~/.yabairc"
-
-[skhd.files]
-"dots/skhd/skhdrc" = "~/.skhdrc"
-
-[warp_mac.files]
-"dots/warp/keybindings.yaml" = "~/.warp/keybindings.yaml"
-"dots/warp/themes/standard" = "~/.warp/themes/standard"
-
-[warp_linux.files]
-"dots/warp/keybindings.yaml" = "~/.local/share/warp-terminal/keybindings.yaml"
-"dots/warp/themes/standard" = "~/.local/share/warp-terminal/themes/standard"
-
-[homebrew.files]
-"dots/homebrew/Brewfile" = "~/.Brewfile"
-
-[zed_mac.files]
-"dots/zed/settings.json" = "~/.config/zed/settings.json"
-
-[zed_linux.files]
-"dots/zed/settings.json" = "~/.local/share/zed/settings.json"

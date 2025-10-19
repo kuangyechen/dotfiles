@@ -1,0 +1,3 @@
+[warp.files]
+"dots/warp/keybindings.yaml" = "~/.local/share/warp-terminal/keybindings.yaml"
+"dots/warp/themes/standard" = "~/.local/share/warp-terminal/themes/standard"
