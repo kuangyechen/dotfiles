@@ -1,3 +1,6 @@
 [submodule "mackup/.warp/themes"]
 	path = dots/warp/themes
 	url = https://github.com/warpdotdev/themes.git
+[submodule "dots/private-dotfiles"]
+	path = dots/private-dotfiles
+	url = git@github.com:kuangyechen/private-dotfiles.git

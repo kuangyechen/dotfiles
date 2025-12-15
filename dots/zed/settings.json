@@ -8,19 +8,6 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
     // Appearance
-    "ssh_connections": [
-    {
-      "host": "ddns.cnhhome.com",
-      "args": [],
-      "projects": [
-        {
-          "paths": [
-            "/home/field/Workspaces/dotfiles"
-          ]
-        }
-      ]
-    }
-  ],
     "icon_theme": {
         "mode": "dark",
         "light": "Zed (Default)",
@@ -45,10 +32,7 @@
 
     // Agent
     "agent": {
-        "inline_assistant_model": {
-            "provider": "deepseek",
-            "model": "deepseek-reasoner"
-        },
+        "always_allow_tool_actions": true,
         "model_parameters": []
     },
 
