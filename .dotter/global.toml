@@ -33,5 +33,5 @@
 "dots/fish/functions" = "~/.config/fish/functions"
 
 [codex.files]
-"dots/codex/private-dotfiles/codex/config.toml" = "~/.codex/config.toml"
+"dots/private-dotfiles/codex/config.toml" = "~/.codex/config.toml"
 "dots/codex/auth.json" = "~/.codex/auth.json"

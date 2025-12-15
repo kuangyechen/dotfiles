@@ -12,7 +12,7 @@
 "dots/homebrew/Brewfile" = "~/.Brewfile"
 
 [zed.files]
-"dots/zed/private-dotfiles/zed/settings.json" = "~/.config/zed/settings.json"
+"dots/private-dotfiles/zed/settings.json" = "~/.config/zed/settings.json"
 "dots/zed/keymap.json" = "~/.config/zed/keymap.json"
 
 [aerospace.files]
