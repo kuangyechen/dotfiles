@@ -11,6 +11,9 @@ fish_add_path -g {$PNPM_HOME}
 fish_add_path -ag {$HOME}/.docker/bin
 # Foundry
 fish_add_path -ag {$HOME}/.foundry/bin
+# Go
+fish_add_path -ag /usr/local/go/bin
+fish_add_path -g {$HOME}/go/bin
 
 # Source local env
 if test -f ~/.config/fish/local_env.fish

@@ -17,6 +17,8 @@ function command_exists() {
 export PATH="$HOME/.local/bin:$PATH:/usr/local/sbin:/opt/homebrew/bin"
 # Rust
 export PATH=${HOME}/.cargo/bin:${PATH}
+# Go
+export PATH=${HOME}/go/bin:${PATH}:/usr/local/go/bin
 # Foundry
 export PATH=${PATH}:${HOME}/.foundry/bin
 # Docker
