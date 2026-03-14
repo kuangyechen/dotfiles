@@ -18,8 +18,8 @@
         "light": "One Light",
         "dark": "Zedokai Darker (Filter Machine)",
     },
-    "ui_font_size": 14,
-    "buffer_font_size": 13,
+    "ui_font_size": 16,
+    "buffer_font_size": 15,
     "buffer_font_family": "UbuntuMono Nerd Font Mono",
 
     // Editor
@@ -27,96 +27,13 @@
     "helix_mode": true,
     "tab_size": 4,
 
-    // Inlay hints
-    "inlay_hints": {
-        "enabled": true,
-        "show_type_hints": true,
-        "show_parameter_hints": true,
-        "show_other_hints": true,
-        "show_background": false,
-        "edit_debounce_ms": 700,
-        "scroll_debounce_ms": 50,
-        "toggle_on_modifiers_press": null,
-    },
-
     // Keymap
     "base_keymap": "VSCode",
 
-    // Edit prediction
-    "show_edit_predictions": true,
-    "edit_predictions": {
-        "open_ai_compatible_api": {
-            "model": "GLM-5",
-            "max_output_tokens": 100,
-            "api_url": "https://open.bigmodel.cn/api/coding/paas/v4",
-        },
-    },
-
     // Agent
     "agent": {
-        "default_profile": "ask",
-        "default_model": {
-            "provider": "BigModel",
-            "model": "GLM-5",
-        },
+        "always_allow_tool_actions": true,
         "model_parameters": [],
-    },
-    // External Agents
-    "agent_servers": {
-        "claude-acp": {
-            "type": "registry",
-        },
-        "Mi Code CLI": {
-            "type": "custom",
-            "command": "micode",
-            "args": ["--experimental-acp"],
-        },
-    },
-
-    "context_servers": {
-        "mcp-server-context7": {
-            "enabled": true,
-            "settings": {
-                "context7_api_key": "ctx7sk-ad395bd8-fc67-41e5-858c-34bb60ad3e07",
-            },
-        },
-    },
-
-    // LLM
-    "language_models": {
-        "openai_compatible": {
-            "BigModel": {
-                "api_url": "https://open.bigmodel.cn/api/coding/paas/v4",
-                "available_models": [
-                    {
-                        "name": "GLM-4.7",
-                        "display_name": "GLM-4.7",
-                        "max_tokens": 200000,
-                        "max_output_tokens": 128000,
-                        "max_completion_tokens": 128000,
-                        "capabilities": {
-                            "tools": true,
-                            "images": false,
-                            "parallel_tool_calls": false,
-                            "prompt_cache_key": false,
-                        },
-                    },
-                    {
-                        "name": "GLM-5",
-                        "display_name": "GLM-5",
-                        "max_tokens": 200000,
-                        "max_output_tokens": 128000,
-                        "max_completion_tokens": 128000,
-                        "capabilities": {
-                            "tools": true,
-                            "images": false,
-                            "parallel_tool_calls": false,
-                            "prompt_cache_key": false,
-                        },
-                    },
-                ],
-            },
-        },
     },
 
     // Language overwrites
