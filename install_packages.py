@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
 import argparse
-import sys
 import os
+import sys
 
 # Ensure the directory of this script is in sys.path
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
 
-from dotspy.utils import *
-from dotspy.register import ALL_PACKAGES
 from dotspy import config
+from dotspy.register import ALL_PACKAGES
+from dotspy.utils import *
 
 
 def main(args):

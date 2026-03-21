@@ -1,7 +1,6 @@
 import os
 import platform
 
-
 MACOS = "DARWIN"
 LINUX = "LINUX"
 DEBIAN = "DEBIAN"

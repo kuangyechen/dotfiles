@@ -37,19 +37,19 @@ $time\
 show_always = true
 style_user = "fg:#FFED72 bg:#0B0D11"
 style_root = "fg:#FFED72 bg:#0B0D11"
-format = '[ $user]($style)'
+format = "[ $user]($style)"
 disabled = false
 
 # An alternative to the username module which displays a symbol that
 # represents the current operating system
 [os]
 style = "bg:#0B0D11"
-disabled = true      # Disabled by default
+disabled = true  # Disabled by default
 
 [hostname]
 ssh_only = false
 ssh_symbol = "󰣀 "
-format = '[@$ssh_symbol$hostname ]($style)'
+format = "[@$ssh_symbol$hostname ]($style)"
 style = "fg:#FFED72 bg:#0B0D11"
 disabled = false
 
@@ -75,86 +75,86 @@ truncation_symbol = "…/"
 [python]
 symbol = ""
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [c]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [docker_context]
 symbol = " "
 style = "fg:#2C2525 bg:#1890FF"
-format = '[ $symbol $context ]($style) $path'
+format = "[ $symbol $context ]($style) $path"
 
 [elixir]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [elm]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [git_branch]
 symbol = ""
 style = "fg:#2C2525 bg:#A2E578"
-format = '[ $symbol $branch ]($style)'
+format = "[ $symbol $branch ]($style)"
 
 [git_status]
 style = "fg:#2C2525 bg:#A2E578"
-format = '[$all_status$ahead_behind ]($style)'
+format = "[$all_status$ahead_behind ]($style)"
 
 [golang]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [gradle]
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [haskell]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [java]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [julia]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [nodejs]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [nim]
 symbol = " "
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [rust]
 symbol = ""
 style = "fg:#2C2525 bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [scala]
 symbol = " "
 style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+format = "[ $symbol ($version) ]($style)"
 
 [time]
 disabled = false
-time_format = "%R"              # Hour:Minute Format
+time_format = "%R"  # Hour:Minute Format
 style = "fg:#2C2525 bg:#F2FFFC"
-format = '[ $time ]($style)'
+format = "[ $time ]($style)"
 
 [character]
-vicmd_symbol = '[VI-MODE](bold fg:#FFED70)'
+vicmd_symbol = "[VI-MODE](bold fg:#FFED70)"
