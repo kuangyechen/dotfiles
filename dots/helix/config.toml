@@ -14,12 +14,12 @@ select = "underline"
 left = ["mode", "spinner"]
 center = ["file-name"]
 right = [
-    "diagnostics",
-    "selections",
-    "position",
-    "file-encoding",
-    "file-line-ending",
-    "file-type",
+  "diagnostics",
+  "selections",
+  "position",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
 ]
 separator = "│"
 mode.normal = "NORMAL"
@@ -31,5 +31,5 @@ hidden = false
 
 [editor.indent-guides]
 render = true
-character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+character = "╎"  # Some characters that work well: "▏", "┆", "┊", "⸽"
 skip-levels = 1

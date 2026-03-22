@@ -4,8 +4,8 @@
 
 - Clone the repo (if needed) and `cd` into it.
 - Run the OS helper script from the repo root:
-    - macOS: `./install_packages_mac.sh`
-    - Ubuntu Server: `./install_packages_ubuntu_server.sh`
+    1. macOS: `./install_packages_mac.sh`
+    2. Ubuntu Server: `./install_packages_ubuntu_server.sh`
 - Both helpers run with `-d` (dry-run); drop it to apply changes.
 - Use `./install_packages.py -y -v -p "homebrew uv` from the repo root.
 
