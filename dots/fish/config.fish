@@ -14,6 +14,8 @@ fish_add_path -ag {$HOME}/.foundry/bin
 # Go
 fish_add_path -ag /usr/local/go/bin
 fish_add_path -g {$HOME}/go/bin
+# opencode
+fish_add_path -ag {$HOME}/.opencode/bin
 
 # Source local env
 if test -f ~/.config/fish/local_env.fish
