@@ -6,7 +6,9 @@ fish_add_path -g /opt/homebrew/bin
 fish_add_path -ag {$HOME}/.cargo/bin
 # pnpm
 set -gx PNPM_HOME {$HOME}/.local/share/pnpm
-fish_add_path -g {$PNPM_HOME}
+fish_add_path -g {$PNPM_HOME}/bin
+# bun
+fish_add_path -g {$HOME}/.bun/bin
 # Docker
 fish_add_path -ag {$HOME}/.docker/bin
 # Foundry
