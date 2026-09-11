@@ -11,3 +11,6 @@ __pycache__
 .dotter/local.toml
 .dotter/cache.toml
 .dotter/cache
+
+# Claude Code
+.claude/
