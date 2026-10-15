@@ -280,7 +280,7 @@ binaries = ["zed"]
 dotter = ["zed"]
 conflicts = ["zed-private"]
 requires = ["nerd-font"]
-install.macos = "brew install --cask zed"
+install.macos = "brew install --cask zed; deploy settings before first launch, then let Zed restore auto_install_extensions"
 
 [components.zed-private]
 purpose = "Zed with personal settings from private-dotfiles, replacing shared settings"
@@ -289,7 +289,7 @@ binaries = ["zed"]
 dotter = ["zed-private"]
 conflicts = ["zed"]
 requires = ["nerd-font"]
-install.macos = "brew install --cask zed; initialize private-dotfiles before deploying settings"
+install.macos = "brew install --cask zed; initialize private-dotfiles and deploy settings before first launch, then let Zed restore auto_install_extensions"
 
 [components.warp]
 purpose = "Optional Mac terminal with the existing theme submodule"

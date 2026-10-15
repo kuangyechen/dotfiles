@@ -51,6 +51,12 @@
 记录用途、平台、安装指导、命令和所需 Dotter 组，不用整机导出覆盖目录。
 设备缺少软件不代表要从默认组合删除它；不因此卸载本机软件。
 
+Zed 扩展通过 settings 的 `auto_install_extensions` 收录，使用 `extension.toml` 中的 ID，
+不要使用扩展显示名。macOS 可从 `~/Library/Application Support/Zed/extensions/installed/`
+读取已安装清单；Linux 使用 `$XDG_DATA_HOME/zed/extensions/installed/`，未设置时为
+`~/.local/share/zed/extensions/installed/`。筛选长期需要的扩展后，将共享扩展选择同步到通用
+和私有两份 settings，设备／个人专属扩展留在相应配置。不要收录整个 `extensions/` 目录。
+
 ## 4. 验证和交付
 
 - 审阅主仓库及子模块 diff，确认没有引入登录态、机器绝对路径或自动生成状态，

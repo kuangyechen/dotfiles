@@ -7,6 +7,21 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+    // Extensions restored automatically by Zed on startup.
+    "auto_install_extensions": {
+        "catppuccin-icons": true,
+        "docker-compose": true,
+        "dockerfile": true,
+        "fish": true,
+        "git-firefly": true,
+        "html": true,
+        "just": true,
+        "markdown-oxide": true,
+        "tombi": true,
+        "toml": true,
+        "zedokai": true,
+    },
+
     // Appearance
     "icon_theme": {
         "mode": "dark",
