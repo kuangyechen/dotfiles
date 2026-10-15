@@ -1,0 +1,4 @@
+[init]
+	defaultBranch = master
+[include]
+	path = ~/.config/git/local.gitconfig

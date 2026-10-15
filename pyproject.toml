@@ -1,0 +1,35 @@
+[project]
+name = "dotfiles-tools"
+version = "0.1.0"
+description = "Small inspection tools for an agent-maintained personal environment"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pydantic>=2.14.1",
+    "typer>=0.27.3",
+]
+
+[project.scripts]
+dots = "dotfiles_tools.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src"]
+extend-exclude = ["dots", "legacy", "raycast_scripts"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.0",
+]

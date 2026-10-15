@@ -1,3 +1,4 @@
+# Frozen historical snapshot. Software choices are maintained in catalog.toml.
 tap "homebrew/bundle"
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"

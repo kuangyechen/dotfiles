@@ -1,4 +1,10 @@
+[settings]
+default_target_type = "symbolic"
+
 [zsh.files]
+"dots/zsh/minimal.zshrc" = "~/.zshrc"
+
+[oh-my-zsh.files]
 "dots/zsh/zshrc" = "~/.zshrc"
 "dots/zsh/zshenv" = "~/.zshenv"
 "dots/zsh/custom_management.zsh" = "~/.oh-my-zsh/custom/custom_management.zsh"
@@ -11,10 +17,10 @@
 "dots/vim/vimrc" = "~/.vimrc"
 
 [git.files]
-"dots/git/gitconfig" = "~/.gitconfig"
+"dots/git/base.gitconfig" = "~/.gitconfig"
 
 [alacritty.files]
-"dots/alacritty/config.toml" = "~/.config/alacritty/alacritty.toml"
+"dots/alacritty/portable.toml" = "~/.config/alacritty/alacritty.toml"
 "dots/alacritty/monokai_pro.toml" = "~/.config/alacritty/themes/monokai_pro.toml"
 
 [gitui.files]
@@ -28,10 +34,11 @@
 "dots/zellij/config.kdl" = "~/.config/zellij/config.kdl"
 
 [fish.files]
-"dots/fish/config.fish" = "~/.config/fish/config.fish"
-"dots/fish/completions" = { target = "~/.config/fish/completions", type = "symbolic" }
+"dots/fish/default.fish" = "~/.config/fish/config.fish"
 "dots/fish/functions" = "~/.config/fish/functions"
+
+[fish-completions.files]
+"dots/fish/completions" = { target = "~/.config/fish/completions", type = "symbolic" }
 
 [codex.files]
 "dots/private-dotfiles/codex/config.toml" = "~/.codex/config.toml"
-"dots/codex/auth.json" = "~/.codex/auth.json"

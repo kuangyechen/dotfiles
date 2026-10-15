@@ -1,0 +1,336 @@
+# Installation guidance is for the agent, not an executable installation engine.
+# Check installed state and the upstream instructions before making changes.
+version = 1
+core = ["git", "fish", "starship", "zoxide", "ripgrep", "fd", "bat", "eza", "helix", "zellij", "uv", "dotter", "zsh"]
+
+[profiles.mac]
+platform = "macos"
+includes = [".dotter/mac.toml"]
+components = []
+
+[profiles.linux-server]
+platform = "linux"
+includes = [".dotter/ubuntu.toml"]
+components = []
+
+[components.git]
+purpose = "Version control; portable defaults with a separate local identity"
+platforms = ["macos", "linux"]
+binaries = ["git"]
+dotter = ["git"]
+install.macos = "brew install git"
+install.linux = "sudo apt-get install git"
+
+[components.fish]
+purpose = "Primary interactive shell, with local environment overrides"
+platforms = ["macos", "linux"]
+binaries = ["fish"]
+dotter = ["fish"]
+install.macos = "brew install fish"
+install.linux = "sudo apt-get install fish"
+
+[components.starship]
+purpose = "Shared prompt for Fish and Zsh"
+platforms = ["macos", "linux"]
+binaries = ["starship"]
+dotter = ["starship"]
+install.macos = "brew install starship"
+install.linux = "Use the official binary installer: https://starship.rs/guide/#installation"
+
+[components.zoxide]
+purpose = "Directory navigation integrated into the interactive shells"
+platforms = ["macos", "linux"]
+binaries = ["zoxide"]
+install.macos = "brew install zoxide"
+install.linux = "sudo apt-get install zoxide; upstream binaries if unavailable: https://github.com/ajeetdsouza/zoxide#installation"
+
+[components.ripgrep]
+purpose = "Fast recursive text search"
+platforms = ["macos", "linux"]
+binaries = ["rg"]
+install.macos = "brew install ripgrep"
+install.linux = "sudo apt-get install ripgrep"
+
+[components.fd]
+purpose = "File search; expose the portable command name fd"
+platforms = ["macos", "linux"]
+binaries = ["fd"]
+install.macos = "brew install fd"
+install.linux = "sudo apt-get install fd-find; if only fdfind exists, link it to ~/.local/bin/fd after checking for an existing target"
+
+[components.bat]
+purpose = "Syntax-highlighted file viewing; expose the portable command name bat"
+platforms = ["macos", "linux"]
+binaries = ["bat"]
+install.macos = "brew install bat"
+install.linux = "sudo apt-get install bat; if only batcat exists, link it to ~/.local/bin/bat after checking for an existing target"
+
+[components.eza]
+purpose = "Directory listings used by Fish abbreviations"
+platforms = ["macos", "linux"]
+binaries = ["eza"]
+install.macos = "brew install eza"
+install.linux = "Use apt if eza is available; otherwise an upstream binary: https://github.com/eza-community/eza/blob/main/INSTALL.md"
+
+[components.helix]
+purpose = "Primary terminal editor"
+platforms = ["macos", "linux"]
+binaries = ["hx"]
+dotter = ["helix"]
+install.macos = "brew install helix"
+install.linux = "Use a suitable apt package or the official release including its runtime directory: https://docs.helix-editor.com/install.html"
+
+[components.zellij]
+purpose = "Terminal sessions, panes, and the repository's shell helpers"
+platforms = ["macos", "linux"]
+binaries = ["zellij"]
+dotter = ["zellij"]
+install.macos = "brew install zellij"
+install.linux = "Install an upstream binary for the host architecture: https://zellij.dev/documentation/installation.html"
+
+[components.uv]
+purpose = "Run this repository's tools with the pinned Python, and manage Python projects"
+platforms = ["macos", "linux"]
+binaries = ["uv"]
+install.macos = "brew install uv"
+install.linux = "Follow the standalone installer: https://docs.astral.sh/uv/getting-started/installation/"
+
+[components.dotter]
+purpose = "Deploy the single source of file mappings in .dotter"
+platforms = ["macos", "linux"]
+binaries = ["dotter"]
+install.macos = "brew install dotter"
+install.linux = "Download the matching official release to ~/.local/bin; Rust is not required: https://github.com/SuperCuber/dotter/releases"
+
+[components.zsh]
+purpose = "Minimal compatibility shell without an Oh My Zsh dependency"
+platforms = ["macos", "linux"]
+binaries = ["zsh"]
+dotter = ["zsh"]
+conflicts = ["oh-my-zsh"]
+install.macos = "Use the system Zsh already present on macOS"
+install.linux = "sudo apt-get install zsh"
+
+[components.oh-my-zsh]
+purpose = "Optional full historical Zsh environment, replacing the minimal Zsh configuration"
+platforms = ["macos", "linux"]
+binaries = ["zsh"]
+dotter = ["oh-my-zsh"]
+conflicts = ["zsh"]
+install.macos = "Use system Zsh; install Oh My Zsh unattended, without changing login shell or replacing config: https://github.com/ohmyzsh/ohmyzsh#unattended-install"
+install.linux = "Install zsh with apt, then use Oh My Zsh unattended with CHSH=no and KEEP_ZSHRC=yes: https://github.com/ohmyzsh/ohmyzsh#unattended-install"
+
+[components.fisher]
+purpose = "Optional Fish plugin manager; the default Fish configuration does not need it"
+platforms = ["macos", "linux"]
+binaries = ["fish"]
+requires = ["fish"]
+install.macos = "brew install fisher; verify with fish -c 'fisher --version'"
+install.linux = "Run the official installation inside fish, not /bin/sh: https://github.com/jorgebucaran/fisher#installation"
+
+[components.fish-plugins]
+purpose = "Optional Git abbreviations and fd completion helpers from the previous environment"
+platforms = ["macos", "linux"]
+binaries = ["fish"]
+requires = ["fisher", "fd"]
+install.macos = "Check fisher list, then install missing jhillyerd/plugin-git and LumaKernel/fish-fd-complete inside fish"
+install.linux = "Check fisher list, then install missing jhillyerd/plugin-git and LumaKernel/fish-fd-complete inside fish"
+
+[components.fish-completions]
+purpose = "Optional historical completion snapshots; prefer completions supplied by installed tools"
+platforms = ["macos", "linux"]
+requires = ["fish"]
+dotter = ["fish-completions"]
+install.macos = "No additional software; check completion snapshots match installed command versions"
+install.linux = "No additional software; check completion snapshots match installed command versions"
+
+[components.gitui]
+purpose = "Optional terminal Git interface"
+platforms = ["macos", "linux"]
+binaries = ["gitui"]
+dotter = ["gitui"]
+install.macos = "brew install gitui"
+install.linux = "Use an upstream binary: https://github.com/gitui-org/gitui/releases"
+
+[components.vim]
+purpose = "Optional full Vim configuration with Vim Plug and its declared plugins"
+platforms = ["macos", "linux"]
+binaries = ["vim"]
+dotter = ["vim"]
+install.macos = "brew install vim; install vim-plug before loading the managed vimrc, then install its plugins: https://github.com/junegunn/vim-plug"
+install.linux = "sudo apt-get install vim; install vim-plug before loading the managed vimrc, then install its plugins: https://github.com/junegunn/vim-plug"
+
+[components.rust]
+purpose = "Optional Rust development toolchain, independent of the basic CLI environment"
+platforms = ["macos", "linux"]
+binaries = ["rustc", "cargo"]
+install.macos = "Use rustup: https://rustup.rs/"
+install.linux = "Use rustup: https://rustup.rs/"
+
+[components.node]
+purpose = "Optional JavaScript development runtime"
+platforms = ["macos", "linux"]
+binaries = ["node", "npm"]
+install.macos = "brew install node"
+install.linux = "Choose an upstream-supported runtime appropriate to the requested projects: https://nodejs.org/en/download"
+
+[components.pnpm]
+purpose = "Optional JavaScript package manager"
+platforms = ["macos", "linux"]
+binaries = ["pnpm"]
+requires = ["node"]
+install.macos = "brew install pnpm"
+install.linux = "Follow the official installation instructions: https://pnpm.io/installation"
+
+[components.foundry]
+purpose = "Optional Ethereum development toolchain"
+platforms = ["macos", "linux"]
+binaries = ["forge", "cast"]
+install.macos = "Use the official installer: https://getfoundry.sh/introduction/installation/"
+install.linux = "Use the official installer: https://getfoundry.sh/introduction/installation/"
+
+[components.maturin]
+purpose = "Optional Python/Rust extension build tool"
+platforms = ["macos", "linux"]
+binaries = ["maturin"]
+requires = ["uv"]
+install.macos = "uv tool install maturin"
+install.linux = "uv tool install maturin"
+
+[components.bottom]
+purpose = "Optional terminal resource monitor"
+platforms = ["macos", "linux"]
+binaries = ["btm"]
+install.macos = "brew install bottom"
+install.linux = "Use an upstream package or binary: https://github.com/ClementTsang/bottom#installation"
+
+[components.dust]
+purpose = "Optional disk usage inspection"
+platforms = ["macos", "linux"]
+binaries = ["dust"]
+install.macos = "brew install dust"
+install.linux = "Use an upstream binary: https://github.com/bootandy/dust/releases"
+
+[components.grex]
+purpose = "Optional regular expression generation"
+platforms = ["macos", "linux"]
+binaries = ["grex"]
+install.macos = "brew install grex"
+install.linux = "Use an upstream binary: https://github.com/pemistahl/grex/releases"
+
+[components.skim]
+purpose = "Optional fuzzy selection"
+platforms = ["macos", "linux"]
+binaries = ["sk"]
+install.macos = "brew install sk"
+install.linux = "Use an upstream binary: https://github.com/skim-rs/skim/releases"
+
+[components.sd]
+purpose = "Optional text replacement utility"
+platforms = ["macos", "linux"]
+binaries = ["sd"]
+install.macos = "brew install sd"
+install.linux = "Use apt if available or an upstream binary: https://github.com/chmln/sd/releases"
+
+[components.ouch]
+purpose = "Optional archive utility"
+platforms = ["macos", "linux"]
+binaries = ["ouch"]
+install.macos = "brew install ouch"
+install.linux = "Use an upstream binary: https://github.com/ouch-org/ouch/releases"
+
+[components.tokei]
+purpose = "Optional source code statistics"
+platforms = ["macos", "linux"]
+binaries = ["tokei"]
+install.macos = "brew install tokei"
+install.linux = "Use an upstream binary: https://github.com/XAMPPRocky/tokei/releases"
+
+[components.rm-improved]
+purpose = "Optional recoverable file removal utility"
+platforms = ["macos", "linux"]
+binaries = ["rip"]
+install.macos = "brew install rm-improved"
+install.linux = "Use upstream installation guidance, only with an explicitly chosen Rust toolchain if compilation is needed: https://github.com/nivekuil/rip"
+
+[components.just]
+purpose = "Optional task runner for development repositories"
+platforms = ["macos", "linux"]
+binaries = ["just"]
+install.macos = "brew install just"
+install.linux = "Use apt if available or an upstream binary: https://github.com/casey/just/releases"
+
+[components.alacritty]
+purpose = "Optional Mac terminal with the managed Monokai theme"
+platforms = ["macos"]
+binaries = ["alacritty"]
+dotter = ["alacritty"]
+requires = ["nerd-font"]
+install.macos = "brew install --cask alacritty"
+
+[components.nerd-font]
+purpose = "Ubuntu Mono Nerd Font used by terminal/editor preferences and prompt symbols"
+platforms = ["macos"]
+install.macos = "brew install --cask font-ubuntu-mono-nerd-font"
+
+[components.zed]
+purpose = "Optional Mac editor using shared settings"
+platforms = ["macos"]
+binaries = ["zed"]
+dotter = ["zed"]
+conflicts = ["zed-private"]
+requires = ["nerd-font"]
+install.macos = "brew install --cask zed"
+
+[components.zed-private]
+purpose = "Zed with personal settings from private-dotfiles, replacing shared settings"
+platforms = ["macos"]
+binaries = ["zed"]
+dotter = ["zed-private"]
+conflicts = ["zed"]
+requires = ["nerd-font"]
+install.macos = "brew install --cask zed; initialize private-dotfiles before deploying settings"
+
+[components.warp]
+purpose = "Optional Mac terminal with the existing theme submodule"
+platforms = ["macos"]
+dotter = ["warp"]
+install.macos = "brew install --cask warp; initialize dots/warp/themes before deployment"
+
+[components.aerospace]
+purpose = "Optional Mac tiling window manager"
+platforms = ["macos"]
+binaries = ["aerospace"]
+dotter = ["aerospace"]
+conflicts = ["yabai", "skhd"]
+install.macos = "Follow the current upstream Homebrew installation: https://nikitabobko.github.io/AeroSpace/guide#installation"
+
+[components.yabai]
+purpose = "Optional historical Mac window manager, as an alternative to Aerospace"
+platforms = ["macos"]
+binaries = ["yabai"]
+dotter = ["yabai"]
+conflicts = ["aerospace"]
+install.macos = "Follow upstream installation and review the privileged scripting-addition behavior in the old configuration before enabling it: https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)"
+
+[components.skhd]
+purpose = "Optional keyboard bindings for Yabai"
+platforms = ["macos"]
+binaries = ["skhd"]
+dotter = ["skhd"]
+requires = ["yabai"]
+conflicts = ["aerospace"]
+install.macos = "Follow upstream installation; enabling its service is a separate device preference: https://github.com/koekeishiya/skhd"
+
+[components.codex]
+purpose = "Optional personal agent configuration; authentication stays device-local"
+platforms = ["macos", "linux"]
+binaries = ["codex"]
+dotter = ["codex"]
+install.macos = "Use the already installed agent; initialize private-dotfiles for personal config and complete login on this device"
+install.linux = "Use the already installed agent; initialize private-dotfiles for personal config and complete login on this device"
+
+[components.raycast]
+purpose = "Optional Mac launcher; scripts remain a separate project"
+platforms = ["macos"]
+install.macos = "brew install --cask raycast; add raycast_scripts/scripts only when the associated tools are enabled"

@@ -9,11 +9,23 @@
 "dots/warp/themes/standard" = "~/.warp/themes/standard"
 
 [homebrew.files]
+# Frozen compatibility mapping for existing local selections. New profiles omit it.
 "dots/homebrew/Brewfile" = "~/.Brewfile"
 
-[zed.files]
-"dots/private-dotfiles/zed/settings.json" = "~/.config/zed/settings.json"
+[zed-keymap.files]
 "dots/zed/keymap.json" = "~/.config/zed/keymap.json"
+
+[zed]
+depends = ["zed-keymap"]
+
+[zed.files]
+"dots/zed/settings.json" = "~/.config/zed/settings.json"
+
+[zed-private]
+depends = ["zed-keymap"]
+
+[zed-private.files]
+"dots/private-dotfiles/zed/settings.json" = "~/.config/zed/settings.json"
 
 [aerospace.files]
 "dots/aerospace/aerospace.toml" = "~/.config/aerospace/aerospace.toml"

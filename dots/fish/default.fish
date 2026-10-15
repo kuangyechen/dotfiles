@@ -1,0 +1,110 @@
+# Local bin
+fish_add_path -g {$HOME}/.local/bin
+fish_add_path -g /usr/local/sbin
+fish_add_path -g /opt/homebrew/bin
+# Rust
+fish_add_path -ag {$HOME}/.cargo/bin
+# pnpm
+set -gx PNPM_HOME {$HOME}/.local/share/pnpm
+fish_add_path -g {$PNPM_HOME}/bin
+# bun
+fish_add_path -g {$HOME}/.bun/bin
+# Docker
+fish_add_path -ag {$HOME}/.docker/bin
+# Foundry
+fish_add_path -ag {$HOME}/.foundry/bin
+# Go
+fish_add_path -ag /usr/local/go/bin
+fish_add_path -g {$HOME}/go/bin
+# opencode
+fish_add_path -ag {$HOME}/.opencode/bin
+
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+
+    # Utility functions
+    function command_exists --description "Check if a command exists"
+        command -v $argv[1] >/dev/null 2>&1
+    end
+
+    # Starship
+    if command_exists starship
+        starship init fish | source
+    end
+
+    # Zoxide
+    if command_exists zoxide
+        zoxide init fish | source
+    end
+
+    # Eza
+    if command_exists eza
+        # general use aliases
+
+        # just replace ls by eza and allow all other eza arguments
+        abbr --add ls eza
+        # list, size, type, git
+        abbr --add l eza -lbF --git
+        # long, all
+        abbr --add ll eza -lbGF --git
+        # list, long, sort by modification date
+        abbr --add llm eza -lbGd --git --sort=modified
+        # all list
+        abbr --add la eza -lbhHigUmuSa --time-style=long-iso --git --color-scale
+        # all list and extended
+        abbr --add lx eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale
+        # tree view
+        abbr --add tree eza --tree
+        # one column by just names
+        abbr --add lS eza -1
+        # tree level 2
+        abbr --add lt eza --tree --level=2
+    end
+
+    # Rip
+    if command_exists rip
+        abbr --add unrip rip --unbury
+        abbr --add ls_trash rip --seance
+        abbr --add empty_trash rip --decompose
+    end
+
+    # Bat
+    if command_exists bat
+        set -g FIELD_CAT_BIN bat
+        abbr --add cat bat
+    else
+        set -g FIELD_CAT_BIN cat
+    end
+
+    # Environments
+    set -g fish_config {$HOME}/.config/fish/config.fish
+    set -g fish_variables {$HOME}/.config/fish/fish_variables
+    set -g fish_key_bindings fish_vi_key_bindings
+    set -g fish_greeting "Fish customized by Field."
+    set -gx SSH_KEY_PATH {$HOME}/.ssh/id_ed25519
+
+    # Alias
+    abbr --add cat_fish_config {$FIELD_CAT_BIN} {$fish_config}
+    abbr --add cat_fish_variable {$FIELD_CAT_BIN} {$fish_variables}
+
+    if command_exists hx
+        set -gx EDITOR hx
+    else if command_exists vim
+        set -gx EDITOR vim
+    else
+        set -gx EDITOR vi
+    end
+
+    # Functions aliases
+    abbr --add hs history_search
+    abbr --add ze zellij_edit
+    abbr --add zef zellij_edit --float
+    abbr --add zr zellij_run
+    abbr --add zrf zellij_run --float
+
+end
+
+# Machine-local overrides take precedence over shared defaults.
+if test -f ~/.config/fish/local_env.fish
+    source ~/.config/fish/local_env.fish
+end

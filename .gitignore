@@ -6,11 +6,21 @@
 
 # Python
 __pycache__
+.venv/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Machine-local reports and deployment backups
+.local/
 
 # Dotter
 .dotter/local.toml
 .dotter/cache.toml
 .dotter/cache
+
+# Authentication belongs to each device, including the old placeholder path.
+dots/codex/auth.json
 
 # Claude Code
 .claude/
