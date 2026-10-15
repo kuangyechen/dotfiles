@@ -1,65 +1,80 @@
-# Setup：在目标设备建立个人环境
+# Setup: configure the target device
 
-适用于用户明确要求配置当前设备。覆盖个人 shell、CLI、编辑器及按需选择的 Mac 应用。
-系统安全策略、业务服务、默认登录 shell、启动服务和 macOS defaults 需要用户提出相应需求。
-Agent session 已在目标设备运行，不做 SSH 编排。
+Use when the user requests setup on the current device. Cover personal shells, CLI tools,
+editors, and optional Mac apps. System security, business services, login-shell changes,
+startup services, and macOS defaults require a corresponding user request.
+The agent session runs on the target device; SSH orchestration is out of scope.
 
-## 1. 建立本机事实
+## 1. Inspect the device
 
-1. 查看系统、架构、用户、HOME、PATH 和权限。macOS 支持 Apple Silicon／Intel；
-   Linux 覆盖 Ubuntu／Debian，区分 x86_64 与 aarch64，并检查发行物的 libc 要求。
-2. 阅读组件目录。记录主仓库及已初始化子模块的 Git 状态，保留已有修改；
-   不运行 `git submodule update --remote`。
-3. 若缺少 uv，按其官方文档安装；macOS 可用已有 Homebrew。缺少 Homebrew 时，
-   按 https://brew.sh 完成前置条件。Linux 不安装 Homebrew。
-4. 运行 `uv run dots inspect --json`。尚无本机选择时使用
-   `uv run dots inspect --profile mac --json` 或 `--profile linux-server`。
+1. Identify OS, architecture, user, HOME, PATH, and permissions. Support Apple Silicon/Intel Macs
+   and Ubuntu/Debian on x86_64/aarch64. Check downloaded binaries' libc requirements.
+2. Read the catalog. Record root and initialized submodule Git state and preserve existing work.
+   Do not run `git submodule update --remote`.
+3. Install uv from its official instructions if missing. On macOS, use existing Homebrew;
+   if absent, follow [brew.sh](https://brew.sh) and its prerequisites. Do not install Homebrew on Linux.
+4. Run `uv run dots inspect --json`. Without a local selection, preview with
+   `uv run dots inspect --profile mac --json` or `--profile linux-server`.
 
-## 2. 选择组件并安装
+## 2. Select and install components
 
-- 默认是基础 shell、CLI 和编辑器。结合用户用途选择可选组件，不整体恢复历史 Brewfile。
-  已有 `.dotter/local.toml` 时先理解当前选择，新默认组合不直接替换它。
-- `uv run dots profile mac --with zed` 预览组合。重复 `--with` 添加组件，`--without` 排除默认项。
-  完整 Oh My Zsh 使用 `--without zsh --with oh-my-zsh`；依赖会一并加入，互斥组件不能一起选。
-- 检查组件的 `binaries` 和原生安装状态。安装指导是给 agent 的数据，不是批量执行脚本。
-  指向上游时读取当前官方安装说明；保留符合需求的已有安装，不因 setup 自动升级或卸载整机软件。
-- Linux 优先 apt，无合适包时用上游预编译发行物，不为基础 CLI 默认安装 Rust。
-  检查架构和完整 runtime，例如 Helix 不能只复制 `hx`。
-- `fd-find`／`bat` 可能提供 `fdfind`／`batcat`。仅在对应命令缺失且目标不冲突时，
-  在 `~/.local/bin/` 建立 `fd`／`bat` 链接并验证 PATH。
-- 默认 Fish 不依赖 Fisher。选中插件组件时在 Fish 内安装并检查插件列表。
-- 需要私有配置或主题时，仅初始化所需子模块，使用父仓库记录的 commit。
-  无访问权限时继续通用部分，将该组件列为阻塞。
-- Zed 扩展由所选 settings 中的 `auto_install_extensions` 声明。先部署配置，再启动 Zed
-  自动恢复扩展；通过扩展面板或安装目录核对完成情况。无需复制扩展代码、下载的语言服务器或缓存。
+- Defaults cover shells, CLI tools, and an editor. Add optional components for the user's needs;
+  do not restore the historical Brewfile wholesale. Understand an existing `.dotter/local.toml`
+  before changing it; a new default profile must not overwrite its choices.
+- Preview with `uv run dots profile mac --with zed`. Repeat `--with` to add components;
+  use `--without` to exclude defaults. Full Oh My Zsh uses `--without zsh --with oh-my-zsh`.
+  Dependencies are included automatically; conflicting components cannot be selected together.
+- Check component `binaries` and native installation state. Installation guidance is data for
+  the agent, not a script to execute wholesale. Follow current upstream instructions where linked.
+  Preserve suitable installations; setup does not imply machine-wide upgrades or removals.
+- Prefer apt on Linux, then upstream prebuilt releases when suitable packages are unavailable.
+  Do not install Rust by default merely to obtain CLI tools. Check architecture and complete
+  runtime requirements; Helix needs more than its `hx` binary.
+- Debian packages may expose `fdfind`/`batcat` instead of `fd`/`bat`. Create links in `~/.local/bin/`
+  only when the desired commands are missing and targets are free; verify PATH access.
+- Default Fish needs no Fisher. Install selected plugins inside Fish and verify the plugin list.
+- Initialize only required private/theme submodules at the parent-pinned commits. If access fails,
+  continue shared setup and report the affected component as blocked.
+- Zed restores `auto_install_extensions` from the selected settings. Deploy settings before launching
+  Zed, then verify the extension panel or installation directory. Do not copy extension code,
+  downloaded language servers, or caches.
 
-## 3. 比较、备份和部署
+## 3. Compare, back up, and deploy
 
-1. 将生成的组合先保存到 `.local/` 临时文件，与已有本机选择比较，保留机器级覆盖。
-   备份原选择后再更新 `.dotter/local.toml`，不提交本机文件。
-2. 再运行 inspect，并审阅 `previous_deployments`。Dotter 更换选择时会处理旧缓存，
-   将退出管理的文件也必须纳入比较。
-3. 已链接到 repo 的文件先审阅 Git diff。独立普通文件需比较并合并可复用内容；
-   没有共同基线时不凭修改时间决定保留哪边，无法取舍才展示具体差异询问。
-4. 将要替换的目标及已有 Dotter 本机配置／缓存备份到 `.local/backups/<UTC时间>/`，
-   保留权限和链接本身。HOME 内按相对路径保存，其它路径放 `absolute/`，记录原路径与备份对应关系。
-   验证备份后将已解决冲突的目标移开，不覆盖同名旧备份。
-5. 先运行 `dotter deploy --dry-run`，确认部署和旧链接移除符合预期，再运行
-   `dotter deploy --verbose`，不用 blanket `--force`。两次执行之间文件若被应用重写，重新比较。
+1. Generate the selection into a temporary file under `.local/`. Compare with the current selection,
+   preserving machine-specific overrides. Back up the original before updating `.dotter/local.toml`;
+   do not commit local selections.
+2. Run inspect again and review `previous_deployments`. Dotter may remove cached deployments when
+   selections change, so include files leaving management in the comparison.
+3. Review Git diffs for files already linked to the repo. Compare independent files and merge reusable
+   changes. Without a common baseline, modification time alone cannot resolve a conflict; show the
+   concrete diff and ask when intent remains unclear.
+4. Back up targets to replace and existing Dotter local configuration/cache under
+   `.local/backups/<UTC-timestamp>/`, preserving permissions and symlinks themselves. Preserve
+   HOME-relative paths; place other paths under `absolute/`. Record original-to-backup paths.
+   Verify backups before moving resolved targets aside; never overwrite an earlier backup.
+5. Run `dotter deploy --dry-run`, review deployment and old-link removals, then run
+   `dotter deploy --verbose`. Avoid blanket `--force`. Recompare targets rewritten by apps
+   between preview and deployment.
 
-默认使用显式软链接。模板、条件和 owner 会被检查工具标为 `manual`，需结合 Dotter 处理，
-不能反向复制渲染产物覆盖模板。鉴权文件不部署；若旧设备仍将登录态链接到 repo，
-先将其保存在设备本地并恢复成普通文件，再退出旧映射，不将内容写入报告。
+Prefer explicit symbolic mappings. Inspect marks templates, conditions, and ownership as `manual`;
+review them with Dotter rather than copying rendered output over source templates.
+Authentication files are not deployed. If an old device still links authentication state into the
+repo, preserve it as a device-local regular file before retiring the mapping; exclude contents
+from reports.
 
-## 4. 本地覆盖和验证
+## 4. Local overrides and verification
 
-- Git 身份放 `~/.config/git/local.gitconfig`，由共享配置 include。继承设备已有有效身份，
-  缺少时再询问，不使用系统推断的姓名和邮箱。
-- Fish 的本地覆盖是 `~/.config/fish/local_env.fish`；精简 Zsh 使用
-  `~/.config/local_env` 和 `~/.config/zsh/local.zsh`。本地覆盖最后读取，
-  不跨设备复制 token，不假定存在 `en_US.UTF-8` locale。
-- 验证所选命令与版本，检查 `fish --no-execute`、`zsh -n` 及 TOML 语法；
-  用交互 shell 检查初始化，检查 `hx --health` 和 Zellij 的实际配置解析。
-  GUI 组件检查安装和配置加载；启用服务、申请系统权限属于单独需求。
-- 最后重跑 inspect，说明已完成项、本机差异、可选项和阻塞项。失败后继续独立步骤，
-  修复后重跑检测，不盲目重装。恢复时先检查新修改，再按备份清单逐项恢复文件和本机选择。
+- Git identity belongs in `~/.config/git/local.gitconfig`, included by shared defaults. Preserve
+  the device's existing valid identity; ask if missing rather than using a system-guessed identity.
+- Fish reads `~/.config/fish/local_env.fish`. Minimal Zsh reads `~/.config/local_env` and
+  `~/.config/zsh/local.zsh`. Local overrides load last. Never copy tokens between devices or assume
+  the `en_US.UTF-8` locale exists.
+- Verify selected commands and versions, Fish syntax with `fish --no-execute`, Zsh with `zsh -n`,
+  and TOML syntax. Check interactive shell startup, `hx --health`, and actual Zellij config parsing.
+  For GUI components, verify installation and config loading. Service activation and system
+  permissions require the corresponding user request.
+- Rerun inspect. Report completed items, retained local differences, optional items, and blockers.
+  Continue independent work after failures; retry detection after fixing them rather than blindly
+  reinstalling. Before restoring backups, inspect new changes, then restore files and selections
+  individually using the backup manifest.

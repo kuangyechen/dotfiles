@@ -1,40 +1,41 @@
 # Agent instructions
 
-根据用户任务选择流程：
+Use the workflow matching the user's task:
 
-- 在本机建立或修复环境：先读 `workflows/setup.md`。
-- 将本机配置／软件选择收回仓库：先读 `workflows/sync.md`。
-- 修改仓库代码或文档：直接完成开发，不因此执行设备 setup 或部署。
+- Set up or repair this device: read `workflows/setup.md`.
+- Capture local configuration or software choices: read `workflows/sync.md`.
+- Change repository code or docs: develop directly; do not run device setup or deployment.
 
-## 职责与事实来源
+## Sources of truth
 
-- `catalog.toml` 记录组件用途、支持平台、安装指导、默认组合和关联的 Dotter 组。
-- `.dotter/` 是配置路径映射的唯一来源。不要在代码或文档中再维护一张映射表。
-- `dots/` 保存配置。通用配置留主仓库，个人配置留 `dots/private-dotfiles/` 子模块。
-- `src/dotfiles_tools/` 提供轻量工具；安装、配置取舍和合并由 agent 按工作流处理。
-- `legacy/` 是归档，不执行其中的脚本，不从新包导入旧安装器。
-- `raycast_scripts/` 保持独立项目；根项目不将其注册为 uv workspace member。
+- `catalog.toml`: component purposes, platforms, installation guidance, profiles, and Dotter groups.
+- `.dotter/`: the only source of configuration path mappings. Do not duplicate them in code or docs.
+- `dots/`: shared configuration; `dots/private-dotfiles/`: personal configuration submodule.
+- `src/dotfiles_tools/`: mechanical helpers. The agent handles installation, choices, and merging.
+- `legacy/`: reference only. Do not run its installers or import them into the new package.
+- `raycast_scripts/`: independent project, not a member of the root uv workspace.
 
-## 操作约定
+## Working rules
 
-- 先检查主仓库与子模块已有修改，保留用户工作。不使用 reset、checkout 或 blanket copy 清空差异。
-- 用 `uv run dots profile ...` 查看组合，`uv run dots inspect --json` 检查路径和状态。
-- 常规、可判断的任务连续完成；仅对缺失的用途信息或无法判断的冲突取舍询问。
-- 先比较、备份，再部署。Dotter 的 `--force` 会覆盖 `--dry-run`；不要组合使用，也不要批量强制部署。
-- 密钥、token、登录态和 shell 历史只留设备本地，不纳入映射、报告内容或提交。
-- 本机选择、备份和临时报告放 `.local/` 或已忽略的 Dotter 本机文件中。
-- 软件清单反映长期需要的能力。不要用整机包列表覆盖清单，不把依赖包自动加入默认组合。
-- 用户只要求 sync 时，默认形成本地 diff；未明确要求时不 commit／push。
-- 安装失败或缺少权限时记录具体阻塞，继续独立步骤，不将跳过的必需项报告为成功。
+- Write all agent-facing instructions, workflows, and documentation in concise English.
+- Inspect root and submodule changes first. Preserve user work; never reset, checkout, or blanket-copy away differences.
+- Use `uv run dots profile ...` to preview selections and `uv run dots inspect --json` to inspect state.
+- Complete routine steps continuously. Ask only for missing intent or unresolved conflict choices.
+- Compare and back up before deploying. Dotter's `--force` overrides `--dry-run`; never combine them or force deployment indiscriminately.
+- Keep keys, tokens, authentication state, and shell history device-local, outside mappings, report contents, and commits.
+- Store local selections, backups, and reports in `.local/` or ignored Dotter local files.
+- Record lasting software needs. Do not replace the catalog with a machine package dump or add dependencies to defaults automatically.
+- Sync produces local diffs by default. Commit or push only when requested.
+- Record installation or permission blockers, continue independent steps, and do not report skipped requirements as complete.
 
-## 开发与验证
+## Development and validation
 
-- 固定 Python 3.12.15，通过 uv 管理；数据模型与配置校验使用 Pydantic，避免 dataclass。
-- CLI 使用 Typer，入口测试使用 `typer.testing.CliRunner`，不使用 argparse。
-- 仓库子目录运行应能发现根目录；测试通过 CLI 的 `--repo` 和 `inspect --home` 使用临时目录。
-- 单元测试使用 pytest，修改辅助工具后运行 `uv run pytest`。
-- 格式和静态检查使用 Ruff：`uv run ruff check .` 和 `uv run ruff format --check .`。
-- 需要日志时使用 Loguru；当前工具直接输出检查结果，不添加日志依赖。
-- 修改打包配置后运行 `uv build`，确认 legacy、配置内容和私有子模块没有进入产物。
-- Dotter 部署验证使用临时 HOME 和独立缓存，不在当前用户 HOME 执行真实部署。
-- 验证报告区分代码测试、本机 smoke test 和尚未执行的跨平台验证。
+- Use uv with pinned Python 3.12.15; use Pydantic for models and validation, not dataclasses.
+- Use Typer for the CLI and `typer.testing.CliRunner` for entry-point tests, not argparse.
+- Support repository discovery from subdirectories; use `--repo` and `inspect --home` for temporary fixtures.
+- Use pytest; run `uv run pytest` after helper changes.
+- Use Ruff: `uv run ruff check .` and `uv run ruff format --check .`.
+- Use Loguru when logging is needed. Current direct command output needs no logging dependency.
+- After packaging changes, run `uv build`; verify artifacts exclude legacy files, configuration payloads, and private submodules.
+- Test Dotter deployment with a temporary HOME and isolated cache, never the current user's HOME.
+- Distinguish automated tests, local smoke tests, and untested platforms in validation reports.

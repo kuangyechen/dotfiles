@@ -1,69 +1,76 @@
-# Sync：将本机改动收回仓库
+# Sync: capture local changes
 
-范围是已登记配置、用户指定的新配置和已知软件管理器中的软件选择。
-最终形成本地 diff；没有明确要求时不 commit／push。
+Cover registered configurations, new configurations requested by the user, and software choices
+from known package managers. Produce local diffs; commit or push only when requested.
 
-## 1. 记录起始状态
+## 1. Record the baseline
 
-- 查看主仓库与私有子模块状态，区分原有修改和本次同步修改。运行 `uv run dots inspect --json`。
-  无本机选择时先确定实际使用的组合，不把新设备默认组合当成本机事实。
-- 中间文件放 `.local/`。只读取相关配置，不扫描整个 HOME；不收录历史、缓存、数据库、
-  会话或鉴权状态。比较前确认应用是否正在重写文件，最终写入前再次检查变化。
+- Inspect root and private submodule Git state, separating pre-existing changes from this task.
+  Run `uv run dots inspect --json`. Without a local selection, establish the actual device selection;
+  do not treat a fresh-device default profile as the current state.
+- Keep intermediate files in `.local/`. Read relevant configs, not the entire HOME. Exclude history,
+  caches, databases, sessions, and authentication state. Check whether apps are rewriting files
+  before comparing and recheck before writing.
 
-## 2. 按状态处理配置
+## 2. Handle configuration states
 
-| 状态 | 操作 |
-|---|---|
-| `linked` | 修改已在配置源，审阅对应仓库的 Git diff |
-| `identical` | 内容相同，无需复制；恢复链接属于另行要求的 setup／修复 |
-| `different` | 比较两端，合并可复用修改，不直接单向覆盖 |
-| `missing`／`source-missing` | 确认未部署、子模块缺失或删除意图，不自动删映射 |
-| `foreign-link`／`broken-link`／`type-conflict`／`parent-conflict` | 定位原因，不跟随错误链接收录其它文件 |
-| `manual` | 结合 Dotter 审阅模板、条件、自动目标类型或 owner，不把产物直接复制回模板 |
-| `unreadable` | 报告路径和阻塞，继续独立项 |
+| State                                                                | Action                                                                                                                 |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `linked`                                                             | Changes are already in the source; review the owning repository's Git diff.                                            |
+| `identical`                                                          | No copy needed. Restoring links is a separately requested setup/repair task.                                           |
+| `different`                                                          | Compare both sides and merge reusable changes; do not overwrite unconditionally.                                       |
+| `missing` / `source-missing`                                         | Check deployment, submodule availability, and deletion intent before removing mappings.                                |
+| `foreign-link` / `broken-link` / `type-conflict` / `parent-conflict` | Diagnose the cause; do not follow unknown links to capture unrelated files.                                            |
+| `manual`                                                             | Review templates, conditions, automatic targets, or ownership with Dotter; do not copy rendered output over templates. |
+| `unreadable`                                                         | Report the path and blocker; continue independent items.                                                               |
 
-`unmanaged` 文件只是候选。插件生成函数、自动补全和缓存不因位于配置目录就进入版本控制；
-新增映射需要明确可复用的配置意图。
+`unmanaged` files are candidates only. Generated plugin functions, completions, and caches do not
+belong in version control merely because they sit in a config directory. New mappings require
+clear reusable intent.
 
-重构后的首次检查可能将现有链接标为 `foreign-link`：配置组的默认源已经调整，
-本机仍指向保留的旧源。先用 `previous_deployments` 确认它是否属于原部署；
-若仍指向本仓库内已知的旧源，审阅该源的 Git diff 并判断迁移，不将其当作外部未知配置。
-完整旧 Zsh 环境对应 `oh-my-zsh`，使用个人设置的 Zed 对应 `zed-private`。
+The first inspection after migration may report `foreign-link` because the default source changed
+while the device still links to a preserved old source. Consult `previous_deployments`. If the link
+points to a known old source inside this repo, review its Git diff and choose a migration rather
+than treating it as unknown external config. Full historical Zsh uses `oh-my-zsh`; personal Zed
+settings use `zed-private`.
 
-通用设置留主 repo，个人配置留私有子模块，机器路径和环境差异留本地覆盖。
-两端同时修改时逐项合并，保留起始用户修改。缺少共同基线时通过两端 diff 判断，
-无法判断才展示具体冲突询问。
+Keep reusable settings in the main repo, personal settings in the private submodule, and machine
+paths/environment differences in local overrides. Merge concurrent changes individually, preserving
+baseline user edits. Without a common ancestor, compare both versions and ask only about unresolved
+intent.
 
-只同步内容，不自动重建链接或部署其它文件。用户同时要求恢复管理关系时，
-按 setup 的比较、备份和部署步骤处理。
+Sync captures content; it does not relink or deploy other files automatically. If the user also
+requests restored management, follow setup's comparison, backup, and deployment procedure.
 
-## 3. 软件选择
+## 3. Software and extensions
 
-只使用设备已有管理器读取候选：
+Inspect only package managers already present:
 
-- Homebrew：`brew leaves`、`brew list --cask`，必要时检查安装元数据以区分主动安装和依赖。
-- apt：`apt-mark showmanual`，过滤基础系统包和无关服务器软件。
-- uv：`uv tool list`。
-- Cargo：存在时读取 `cargo install --list`。
+- Homebrew: `brew leaves`, `brew list --cask`; consult metadata to distinguish direct installs from dependencies.
+- apt: `apt-mark showmanual`; filter system packages and unrelated server software.
+- uv: `uv tool list`.
+- Cargo: `cargo install --list`, if available.
 
-与组件目录比较，判断软件是长期需要、项目专用还是临时使用。
-长期需要的新软件可加入可选组件；只有跨设备默认需要时才加入默认组合。
-记录用途、平台、安装指导、命令和所需 Dotter 组，不用整机导出覆盖目录。
-设备缺少软件不代表要从默认组合删除它；不因此卸载本机软件。
+Compare with the catalog and distinguish lasting needs, project tools, and temporary installs.
+Add lasting new software as optional components; promote it to defaults only when needed across
+devices. Record purpose, platform, installation guidance, binaries, and Dotter groups. Do not
+replace the catalog with a machine dump. Absence on one device does not imply removal from defaults
+or permission to uninstall software.
 
-Zed 扩展通过 settings 的 `auto_install_extensions` 收录，使用 `extension.toml` 中的 ID，
-不要使用扩展显示名。macOS 可从 `~/Library/Application Support/Zed/extensions/installed/`
-读取已安装清单；Linux 使用 `$XDG_DATA_HOME/zed/extensions/installed/`，未设置时为
-`~/.local/share/zed/extensions/installed/`。筛选长期需要的扩展后，将共享扩展选择同步到通用
-和私有两份 settings，设备／个人专属扩展留在相应配置。不要收录整个 `extensions/` 目录。
+Capture Zed extensions in `auto_install_extensions` using IDs from `extension.toml`, not display
+names. On macOS, inspect `~/Library/Application Support/Zed/extensions/installed/`; on Linux,
+`$XDG_DATA_HOME/zed/extensions/installed/`, falling back to `~/.local/share/zed/extensions/installed/`.
+Select lasting extensions and keep shared choices aligned in shared and private settings;
+retain device/personal extensions in the appropriate config. Never track the entire `extensions/`
+directory.
 
-## 4. 验证和交付
+## 4. Validate and report
 
-- 审阅主仓库及子模块 diff，确认没有引入登录态、机器绝对路径或自动生成状态，
-  不将私有文件完整 diff 粘贴到通用报告。
-- 修改目录或映射后运行测试、重新生成相关 profile，确认平台和配置组一致；
-  修改配置后运行对应语法检查，最后重跑 inspect 并核对起始记录。
-- 说明收录的配置、软件目录变化、保留的本机差异及阻塞。私有子模块中的未提交内容
-  不会因修改父仓库指针而保存，必须分别说明。
-- 用户明确要求提交时先审阅范围，先提交私有子模块，再提交父仓库指针；
-  push 仅在明确要求时执行，不夹带原有无关修改。
+- Review root and submodule diffs for authentication data, machine-specific absolute paths, and
+  generated state. Do not include complete private diffs in shared reports.
+- After catalog or mapping changes, run tests and regenerate affected profiles to check platform/group
+  consistency. Validate changed configuration syntax, rerun inspect, and compare with the baseline.
+- Report captured configs, software changes, retained local differences, and blockers. Explain private
+  submodule changes separately: a parent pointer cannot save uncommitted submodule content.
+- When commits are requested, review scope, commit the private submodule first, then its parent pointer.
+  Push only when requested and keep unrelated pre-existing edits out of task commits.

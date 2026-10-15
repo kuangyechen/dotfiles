@@ -1,31 +1,29 @@
 # Dotfiles
 
-由 AI agent 维护的个人工作环境，支持新 Mac 和 Ubuntu／Debian server。
+A personal environment repository maintained by AI agents for macOS and Ubuntu/Debian servers.
+Clone it on the target device, start an agent session in the repository, and describe the task:
 
-在目标设备上 clone 仓库、进入目录并启动 agent session，然后直接描述任务：
-
-> 配置这台新 Mac，使用默认环境，并加上 Zed 和 Aerospace。
+> Set up this new Mac with the default environment, Zed, and Aerospace.
 >
-> 把本机配置和软件选择同步回仓库，保留这台设备特有的设置。
+> Sync this device's configuration and software choices into the repository, preserving local overrides.
 
-Agent 从 [AGENTS.md](AGENTS.md) 进入 [setup](workflows/setup.md) 或
-[sync](workflows/sync.md) 流程。软件和默认组合记录在
-[catalog.toml](catalog.toml)，配置路径只在 Dotter 中维护。
+[AGENTS.md](AGENTS.md) routes agents to [setup](workflows/setup.md) or [sync](workflows/sync.md).
+[catalog.toml](catalog.toml) defines software choices and profiles; Dotter defines configuration mappings.
 
-## 仓库组成
+## Layout
 
-- `src/dotfiles_tools/`：状态检查和配置选择工具，命令名 `dots`。
-- `dots/`：实际配置；`dots/private-dotfiles/` 保存个人配置。
-- `.dotter/`：配置映射；`local.toml` 和缓存仅留本机。
-- `workflows/`：agent 的操作流程和判断依据。
-- `raycast_scripts/`：独立项目，保留自己的 Python 环境。
-- `legacy/`：旧安装器和 Mackup 快照，仅作历史参考。
+- `src/dotfiles_tools/`: profile and inspection helpers, exposed as `dots`.
+- `dots/`: configurations; `dots/private-dotfiles/` holds personal settings.
+- `.dotter/`: mappings; local selections and caches remain untracked.
+- `workflows/`: agent procedures and decision rules.
+- `raycast_scripts/`: independent project with its own Python environment.
+- `legacy/`: retired installers and Mackup snapshots, for reference only.
 
-## 辅助命令
+## Helper commands
 
-安装 [uv](https://docs.astral.sh/uv/getting-started/installation/) 后运行；
-uv 会按 `.python-version` 使用 **Python 3.12.15**，不依赖系统 Python。
-项目支持 Python 3.12 系列，使用 Pydantic 校验组件目录和配置模型。
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/). It uses the pinned
+**Python 3.12.15** from `.python-version`, independently of system Python. The project supports
+Python 3.12 and uses Pydantic for catalog and configuration models.
 
 ```sh
 uv run dots profile mac
@@ -38,20 +36,21 @@ uv run dots inspect --json
 uv run dots inspect --profile linux-server --home /tmp/example-home
 ```
 
-`profile` 只向标准输出生成 Dotter 配置，不保存文件。Agent 比较已有本机选择后，
-再将所需组合保存为 `.dotter/local.toml`；默认软件组合仅在组件目录维护。
+`profile` prints Dotter configuration without saving it. The agent compares existing choices
+before saving `.dotter/local.toml`. Default software selections live only in the catalog.
 
-`inspect` 默认检查现有 `local.toml`，缺失时也支持 Dotter 的 hostname 配置；
-`--profile` 用于预览某个默认组合。它不写配置、部署或缓存，也不输出文件内容。
-uv 首次运行可能安装 Python 并创建项目虚拟环境。
+`inspect` reads the existing local selection, with Dotter's hostname fallback. Use `--profile`
+to preview defaults. It does not modify configuration, deployment, or caches, or print file contents.
+The first uv invocation may install Python and create the project environment.
 
-检查结果区分已链接、独立文件相同／不同、缺少源文件、目标缺失、错误链接、
-类型冲突和需要手动处理的模板。目录内额外文件会单独列出，不推断为待删除文件。
-`previous_deployments` 表示缓存中不属于当前选择的旧部署，部署前应审阅。
-成功完成检查返回 `0`，配置错误或无法完成检查返回 `2`；`0` 不表示设备没有差异。
-JSON 包含路径和 Git 状态，仍可能涉及个人信息，应留在本机。
+Reports distinguish linked, identical/different regular files, missing paths, incorrect links,
+type conflicts, and manually handled templates. Extra directory files are listed separately,
+not marked for deletion. `previous_deployments` lists cached deployments outside the selection;
+review these before deploying. Exit `0` means inspection completed, not that no differences exist;
+invalid configuration or inspection failure returns `2`. JSON includes paths and Git state
+and may contain personal information; keep it local.
 
-## 开发
+## Development
 
 ```sh
 uv run pytest
@@ -60,9 +59,9 @@ uv run ruff format --check .
 uv build
 ```
 
-工具按职责分为 `cli`、`catalog`、`dotter`、`inspect`，CLI 使用 Typer，
-不执行安装命令或自动合并。
-新增组件先更新目录，只有存在需要可靠复用的机械操作时才增加代码。
+Modules are `cli`, `catalog`, `dotter`, and `inspect`. Typer provides the CLI. Helpers do not install
+software or merge configs. Add components to the catalog first; add code only for reusable
+mechanical operations. Keep all agent-facing documentation in concise English.
 
-旧 Brewfile 和已有配置源文件保留原路径，以兼容当前设备链接。
-迁移关系见 [legacy/README.md](legacy/README.md)。
+Old Brewfile and configuration source paths remain available for existing device links.
+See [legacy/README.md](legacy/README.md) for migration details.
