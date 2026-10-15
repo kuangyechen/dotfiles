@@ -260,6 +260,62 @@ binaries = ["just"]
 install.macos = "brew install just"
 install.linux = "Use apt if available or an upstream binary: https://github.com/casey/just/releases"
 
+[components.cmake]
+purpose = "Optional build system for C and C++ projects"
+platforms = ["macos", "linux"]
+binaries = ["cmake"]
+install.macos = "brew install cmake"
+install.linux = "sudo apt-get install cmake"
+
+[components.gnupg]
+purpose = "Optional OpenPGP encryption and signing tools; keys stay device-local"
+platforms = ["macos", "linux"]
+binaries = ["gpg"]
+install.macos = "brew install gnupg"
+install.linux = "sudo apt-get install gnupg"
+
+[components.htop]
+purpose = "Optional interactive process viewer"
+platforms = ["macos", "linux"]
+binaries = ["htop"]
+install.macos = "brew install htop"
+install.linux = "sudo apt-get install htop"
+
+[components.protobuf]
+purpose = "Optional Protocol Buffers compiler for development projects"
+platforms = ["macos", "linux"]
+binaries = ["protoc"]
+install.macos = "brew install protobuf"
+install.linux = "sudo apt-get install protobuf-compiler"
+
+[components.shfmt]
+purpose = "Optional shell script formatter"
+platforms = ["macos", "linux"]
+binaries = ["shfmt"]
+install.macos = "brew install shfmt"
+install.linux = "sudo apt-get install shfmt"
+
+[components.tmux]
+purpose = "Optional terminal multiplexer alongside Zellij"
+platforms = ["macos", "linux"]
+binaries = ["tmux"]
+install.macos = "brew install tmux"
+install.linux = "sudo apt-get install tmux"
+
+[components.tree]
+purpose = "Optional directory tree listings"
+platforms = ["macos", "linux"]
+binaries = ["tree"]
+install.macos = "brew install tree"
+install.linux = "sudo apt-get install tree"
+
+[components.wget]
+purpose = "Optional command-line file downloads"
+platforms = ["macos", "linux"]
+binaries = ["wget"]
+install.macos = "brew install wget"
+install.linux = "sudo apt-get install wget"
+
 [components.alacritty]
 purpose = "Optional Mac terminal with the managed Monokai theme"
 platforms = ["macos"]
@@ -303,7 +359,7 @@ platforms = ["macos"]
 binaries = ["aerospace"]
 dotter = ["aerospace"]
 conflicts = ["yabai", "skhd"]
-install.macos = "Follow the current upstream Homebrew installation: https://nikitabobko.github.io/AeroSpace/guide#installation"
+install.macos = "brew install --cask nikitabobko/tap/aerospace; follow upstream setup guidance: https://nikitabobko.github.io/AeroSpace/guide#installation"
 
 [components.yabai]
 purpose = "Optional historical Mac window manager, as an alternative to Aerospace"
@@ -327,10 +383,76 @@ purpose = "Optional personal agent configuration; authentication stays device-lo
 platforms = ["macos", "linux"]
 binaries = ["codex"]
 dotter = ["codex"]
-install.macos = "Use the already installed agent; initialize private-dotfiles for personal config and complete login on this device"
+install.macos = "brew install --cask codex; initialize private-dotfiles for personal config and complete login on this device"
 install.linux = "Use the already installed agent; initialize private-dotfiles for personal config and complete login on this device"
 
 [components.raycast]
 purpose = "Optional Mac launcher; scripts remain a separate project"
 platforms = ["macos"]
 install.macos = "brew install --cask raycast; add raycast_scripts/scripts only when the associated tools are enabled"
+
+[components.chatgpt]
+purpose = "Optional ChatGPT desktop app; authentication stays device-local"
+platforms = ["macos"]
+install.macos = "brew install --cask chatgpt"
+
+[components.clash-verge-rev]
+purpose = "Optional proxy client; subscriptions and credentials stay device-local"
+platforms = ["macos"]
+install.macos = "brew install --cask clash-verge-rev"
+
+[components.feishu]
+purpose = "Optional workplace messaging and collaboration app"
+platforms = ["macos"]
+install.macos = "brew install --cask feishu"
+
+[components.font-maple-mono]
+purpose = "Optional Maple Mono programming font"
+platforms = ["macos"]
+install.macos = "brew install --cask font-maple-mono"
+
+[components.font-maple-mono-nf]
+purpose = "Optional Maple Mono font with Nerd Font symbols"
+platforms = ["macos"]
+install.macos = "brew install --cask font-maple-mono-nf"
+
+[components.font-maple-mono-nf-cn]
+purpose = "Optional Maple Mono font with Nerd Font symbols and Chinese glyphs"
+platforms = ["macos"]
+install.macos = "brew install --cask font-maple-mono-nf-cn"
+
+[components.google-chrome]
+purpose = "Optional web browser"
+platforms = ["macos"]
+install.macos = "brew install --cask google-chrome"
+
+[components.hiddenbar]
+purpose = "Optional utility to hide menu bar items"
+platforms = ["macos"]
+install.macos = "brew install --cask hiddenbar"
+
+[components.insync]
+purpose = "Optional Google Drive and OneDrive sync client; accounts stay device-local"
+platforms = ["macos"]
+install.macos = "brew install --cask insync"
+
+[components.logi-options-plus]
+purpose = "Optional Logitech device settings and controls"
+platforms = ["macos"]
+install.macos = "brew install --cask logi-options+"
+
+[components.stats]
+purpose = "Optional menu bar system monitor"
+platforms = ["macos"]
+install.macos = "brew install --cask stats"
+
+[components.visual-studio-code]
+purpose = "Optional graphical code editor alongside Zed"
+platforms = ["macos"]
+binaries = ["code"]
+install.macos = "brew install --cask visual-studio-code"
+
+[components.wechat]
+purpose = "Optional personal messaging and calling app"
+platforms = ["macos"]
+install.macos = "brew install --cask wechat"
