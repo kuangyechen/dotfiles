@@ -282,18 +282,20 @@ function zvm_after_lazy_keybindings() {
 }
 
 # pnpm
-export PNPM_HOME="/home/field/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# Source secrets
-if [[ -f ~/.config/local_env ]]; then
-    source ~/.config/local_env
-fi
-
 # Profile
 # zprof
 export PATH=${HOME}/.local/bin:$PATH
-export PATH=/Users/field/.local/bin:$PATH
+
+# Machine-local overrides take precedence over shared defaults.
+if [[ -f "$HOME/.config/local_env" ]]; then
+    source "$HOME/.config/local_env"
+fi
+if [[ -f "$HOME/.config/zsh/local.zsh" ]]; then
+    source "$HOME/.config/zsh/local.zsh"
+fi
