@@ -14,6 +14,8 @@
 # @raycast.author Felipe Turcheti
 # @raycast.authorURL https://felipeturcheti.com
 
-sudo dscacheutil -flushcache
-sudo killall -HUP mDNSResponder
+set -e
+
+# Raycast has no terminal for sudo; use the macOS authorization dialog.
+/usr/bin/osascript -e 'do shell script "/usr/bin/dscacheutil -flushcache && /usr/bin/killall -HUP mDNSResponder" with administrator privileges'
 echo "DNS cache flushed"
