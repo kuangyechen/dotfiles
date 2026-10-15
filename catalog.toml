@@ -441,6 +441,11 @@ purpose = "Optional Logitech device settings and controls"
 platforms = ["macos"]
 install.macos = "brew install --cask logi-options+"
 
+[components.obsidian]
+purpose = "Optional Markdown knowledge base; the personal vintry vault syncs through iCloud (see dots/private-dotfiles/README.md)"
+platforms = ["macos"]
+install.macos = "brew install --cask obsidian"
+
 [components.stats]
 purpose = "Optional menu bar system monitor"
 platforms = ["macos"]
