@@ -379,12 +379,11 @@ conflicts = ["aerospace"]
 install.macos = "Follow upstream installation; enabling its service is a separate device preference: https://github.com/koekeishiya/skhd"
 
 [components.codex]
-purpose = "Optional personal agent configuration; authentication stays device-local"
+purpose = "Optional Codex agent; configuration and authentication stay device-local"
 platforms = ["macos", "linux"]
 binaries = ["codex"]
-dotter = ["codex"]
-install.macos = "brew install --cask codex; initialize private-dotfiles for personal config and complete login on this device"
-install.linux = "Use the already installed agent; initialize private-dotfiles for personal config and complete login on this device"
+install.macos = "brew install --cask codex; configure and log in locally on this device; never link or sync its configuration"
+install.linux = "Use the already installed agent; configure and log in locally on this device; never link or sync its configuration"
 
 [components.raycast]
 purpose = "Optional Mac launcher; scripts remain a separate project"

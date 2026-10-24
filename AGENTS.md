@@ -23,6 +23,7 @@ Use the workflow matching the user's task:
 - Complete routine steps continuously. Ask only for missing intent or unresolved conflict choices.
 - Compare and back up before deploying. Dotter's `--force` overrides `--dry-run`; never combine them or force deployment indiscriminately.
 - Keep keys, tokens, authentication state, and shell history device-local, outside mappings, report contents, and commits.
+- Keep Codex configuration device-local too. Never link, deploy, or sync it from this repository or its private submodule.
 - Store local selections, backups, and reports in `.local/` or ignored Dotter local files.
 - Record lasting software needs. Do not replace the catalog with a machine package dump or add dependencies to defaults automatically.
 - Sync produces local diffs by default. Commit or push only when requested.

@@ -63,6 +63,12 @@ Authentication files are not deployed. If an old device still links authenticati
 repo, preserve it as a device-local regular file before retiring the mapping; exclude contents
 from reports.
 
+Codex configuration is also device-local. Never deploy or copy it from shared or private repository
+snapshots on a new machine. If an existing device links its Codex configuration into the repo,
+back up the link and its current contents, replace the link with an identical device-local regular
+file, then retire its cached deployment. Preserve local settings and verify the file is no longer
+a symlink before deploying other configurations.
+
 ## 4. Local overrides and verification
 
 - Git identity belongs in `~/.config/git/local.gitconfig`, included by shared defaults. Preserve

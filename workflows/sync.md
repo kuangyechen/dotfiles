@@ -11,6 +11,8 @@ from known package managers. Produce local diffs; commit or push only when reque
 - Keep intermediate files in `.local/`. Read relevant configs, not the entire HOME. Exclude history,
   caches, databases, sessions, and authentication state. Check whether apps are rewriting files
   before comparing and recheck before writing.
+- Exclude Codex configuration from sync, including plugin/runtime settings. Keep it device-local;
+  existing repository snapshots are historical references, not deployment or sync sources.
 
 ## 2. Handle configuration states
 

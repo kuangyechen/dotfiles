@@ -40,5 +40,5 @@ default_target_type = "symbolic"
 [fish-completions.files]
 "dots/fish/completions" = { target = "~/.config/fish/completions", type = "symbolic" }
 
-[codex.files]
-"dots/private-dotfiles/codex/config.toml" = "~/.codex/config.toml"
+# Compatibility for old local selections; Codex settings stay device-local.
+[codex]

@@ -67,12 +67,15 @@ def test_bad_profile_component_and_platform_fail(root, profile, additions):
         Catalog(root).select(profile, additions)
 
 
-def test_authentication_is_not_a_deployment_target(root):
-    selection = Catalog(root).select("mac", ("codex",))
-    config = load_configuration(
-        root, Path("/tmp/dotfiles-test-home"), tomllib.loads(selection.render())
-    )
-    assert not any(item.target.name == "auth.json" for item in config.mappings)
+@pytest.mark.parametrize("profile", ["mac", "linux-server"])
+def test_codex_configuration_and_authentication_are_not_deployed(root, profile):
+    home = Path("/tmp/dotfiles-test-home")
+    selection = Catalog(root).select(profile, ("codex",))
+    config = load_configuration(root, home, tomllib.loads(selection.render()))
+    assert not any(item.target.is_relative_to(home / ".codex") for item in config.mappings)
+    # Existing local selections must also stop deploying Codex without failing to load.
+    legacy = load_configuration(root, home, {"packages": ["codex"]})
+    assert legacy.mappings == []
 
 
 @pytest.mark.parametrize(
