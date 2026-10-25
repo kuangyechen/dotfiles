@@ -75,7 +75,7 @@ truncation_symbol = "…/"
 [python]
 symbol = ""
 style = "fg:#2C2525 bg:#86BBD8"
-format = "[ $symbol ($version) ]($style)"
+format = "[ $symbol ($version) (\\($virtualenv\\)) ]($style)"
 
 [c]
 symbol = " "
